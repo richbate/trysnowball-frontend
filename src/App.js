@@ -34,7 +34,7 @@ function App() {
         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">🔮 What If Machine</h1>
-            <p className="text-xl text-gray-600 mb-8">Coming soon - see how small changes can save you thousands!</p>
+            <p className="text-xl text-gray-600 mb-8">Coming soon!</p>
             <button 
               onClick={() => setCurrentPage('home')}
               className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition"
@@ -48,16 +48,35 @@ function App() {
 
     if (currentPage === 'library') {
       return (
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">📖 Library</h1>
-            <p className="text-xl text-gray-600 mb-8">Debt payoff strategies and financial tips!</p>
-            <button 
-              onClick={() => setCurrentPage('home')}
-              className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition"
-            >
-              Back to Home
-            </button>
+        <div className="min-h-screen bg-gray-50">
+          <div className="max-w-4xl mx-auto py-12 px-4">
+            <div className="text-center mb-12">
+              <h1 className="text-4xl font-bold text-gray-900 mb-4">📖 Library</h1>
+              <p className="text-xl text-gray-600">
+                Master your money. No lectures, no jargon — just real strategies that work.
+              </p>
+            </div>
+            <div className="max-w-md mx-auto mb-8">
+              <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mb-3">
+                  Spending
+                </span>
+                <h2 className="text-xl font-semibold text-gray-900 mb-3">
+                  Where Does Your Money Actually Go?
+                </h2>
+                <p className="text-gray-600 text-sm">
+                  Discover the hidden spending leaks that keep you stuck in debt.
+                </p>
+              </div>
+            </div>
+            <div className="text-center">
+              <button 
+                onClick={() => setCurrentPage('home')}
+                className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition"
+              >
+                Back to Home
+              </button>
+            </div>
           </div>
         </div>
       );
