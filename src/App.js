@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import DebtTracker from './components/DebtTracker';
+import DebtTracker from '../components/DebtTracker';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
