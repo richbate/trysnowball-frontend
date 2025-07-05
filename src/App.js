@@ -56,19 +56,103 @@ function App() {
                 Master your money. No lectures, no jargon — just real strategies that work.
               </p>
             </div>
-            <div className="max-w-md mx-auto mb-8">
-              <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mb-3">
-                  Spending
-                </span>
-                <h2 className="text-xl font-semibold text-gray-900 mb-3">
-                  Where Does Your Money Actually Go?
-                </h2>
-                <p className="text-gray-600 text-sm">
-                  Discover the hidden spending leaks that keep you stuck in debt.
-                </p>
-              </div>
-            </div>
+            <div className="grid gap-6 md:grid-cols-2 mb-12">
+  <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-200">
+    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mb-3">
+      Spending
+    </span>
+    <h2 className="text-xl font-semibold text-gray-900 mb-3">
+      Where Does Your Money Actually Go?
+    </h2>
+    <p className="text-gray-600 text-sm leading-relaxed">
+      Discover the hidden spending leaks that keep you stuck in debt — and the simple fixes that free up hundreds each month.
+    </p>
+  </div>
+
+  <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-200">
+    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mb-3">
+      Spending
+    </span>
+    <h2 className="text-xl font-semibold text-gray-900 mb-3">
+      The No-Shame Spending Audit
+    </h2>
+    <p className="text-gray-600 text-sm leading-relaxed">
+      A guilt-free way to review your expenses and spot opportunities without beating yourself up.
+    </p>
+  </div>
+
+  <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-200">
+    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 mb-3">
+      Strategy
+    </span>
+    <h2 className="text-xl font-semibold text-gray-900 mb-3">
+      Emergency Fund vs. Debt Payoff: Which Comes First?
+    </h2>
+    <p className="text-gray-600 text-sm leading-relaxed">
+      The counter-intuitive truth about why saving while in debt might be costing you thousands.
+    </p>
+  </div>
+
+  <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-200">
+    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 mb-3">
+      Strategy
+    </span>
+    <h2 className="text-xl font-semibold text-gray-900 mb-3">
+      Found Money: 12 Tiny Changes That Add Up Big
+    </h2>
+    <p className="text-gray-600 text-sm leading-relaxed">
+      From subscription audits to grocery hacks — every pound you find is a pound toward freedom.
+    </p>
+  </div>
+
+  <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-200">
+    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 mb-3">
+      Debt
+    </span>
+    <h2 className="text-xl font-semibold text-gray-900 mb-3">
+      Snowball vs. Avalanche: Why Psychology Beats Math
+    </h2>
+    <p className="text-gray-600 text-sm leading-relaxed">
+      The mathematically optimal method isn't always the best. Here's how to choose the strategy that actually works for you.
+    </p>
+  </div>
+
+  <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-200">
+    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 mb-3">
+      Debt
+    </span>
+    <h2 className="text-xl font-semibold text-gray-900 mb-3">
+      The Minimum Payment Trap — And How to Escape It
+    </h2>
+    <p className="text-gray-600 text-sm leading-relaxed">
+      Why minimum payments are designed to keep you in debt, and what to do instead.
+    </p>
+  </div>
+
+  <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-200">
+    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 mb-3">
+      Debt
+    </span>
+    <h2 className="text-xl font-semibold text-gray-900 mb-3">
+      How Compound Interest Becomes Your Worst Enemy
+    </h2>
+    <p className="text-gray-600 text-sm leading-relaxed">
+      The hidden force that makes your debt grow faster than you think — and how to turn it around.
+    </p>
+  </div>
+
+  <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-200">
+    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 mb-3">
+      Mindset
+    </span>
+    <h2 className="text-xl font-semibold text-gray-900 mb-3">
+      Breaking Free from Debt Shame
+    </h2>
+    <p className="text-gray-600 text-sm leading-relaxed">
+      Why guilt keeps you stuck and how to replace shame with actionable steps toward financial freedom.
+    </p>
+  </div>
+</div>
             <div className="text-center">
               <button 
                 onClick={() => setCurrentPage('home')}
