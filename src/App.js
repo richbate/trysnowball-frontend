@@ -59,7 +59,7 @@ function App() {
 
             <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-8">
               <p className="text-sm text-blue-800">
-                <strong>Disclosure:</strong> As an Amazon Associate, I earn from qualifying purchases. These are books I genuinely recommend.
+                <strong>Disclosure:</strong> As an Amazon Associate, I earn a little bit from qualifying purchases. These are books I genuinely recommend.
               </p>
             </div>
 
@@ -68,10 +68,12 @@ function App() {
   {/* Rich Dad Poor Dad */}
   <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-200">
     <div className="text-center mb-4">
-      <div className="bg-gray-100 h-32 w-24 mx-auto rounded mb-4 flex items-center justify-center">
-        <span className="text-gray-400 text-xs">📘</span>
-      </div>
-    </div>
+  <img 
+    src="https://m.media-amazon.com/images/I/51FZpOlq8lL._SS135_.jpg"
+    alt="Rich Dad Poor Dad book cover"
+    className="h-32 w-24 mx-auto rounded mb-4 object-cover shadow-sm"
+  />
+</div>
     <h3 className="text-lg font-semibold text-gray-900 mb-2 text-center">
       Rich Dad Poor Dad
     </h3>
@@ -89,23 +91,24 @@ function App() {
         Foundation
       </span>
     </div>
-    
-      href="https://www.amazon.co.uk/dp/B00DO8NUIO?tag=trysnowball-21&linkCode=sl1&linkId=c700aaf68e2ec17135465c578949973b&language=en_GB&ref_=as_li_ss_tl"
+      <a href="https://www.amazon.co.uk/dp/B00DO8NUIO?tag=trysnowball-21&linkCode=sl1&linkId=c700aaf68e2ec17135465c578949973b&language=en_GB&ref_=as_li_ss_tl"
       target="_blank"
       rel="noopener noreferrer"
       className="mt-4 w-full bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors text-center block text-sm font-medium"
-    >
-      View on Amazon
+      >
+    View on Amazon
     </a>
   </div>
 
   {/* Psychology of Money */}
   <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-200">
     <div className="text-center mb-4">
-      <div className="bg-gray-100 h-32 w-24 mx-auto rounded mb-4 flex items-center justify-center">
-        <span className="text-gray-400 text-xs">🧠</span>
-      </div>
-    </div>
+  <img 
+    src="https://m.media-amazon.com/images/I/41oKHACBiZL._SS135_.jpg"
+    alt="Unlocking the Psychology of Money book cover"
+    className="h-32 w-24 mx-auto rounded mb-4 object-cover shadow-sm"
+  />
+</div>
     <h3 className="text-lg font-semibold text-gray-900 mb-2 text-center">
       Unlocking the Psychology of Money
     </h3>
@@ -124,11 +127,10 @@ function App() {
       </span>
     </div>
     
-      href="https://www.amazon.co.uk/dp/B0DPFXXTB8?tag=trysnowball-21&linkCode=sl1&linkId=c700aaf68e2ec17135465c578949973b&language=en_GB&ref_=as_li_ss_tl"
+      <a href="https://www.amazon.co.uk/dp/B0DPFXXTB8?tag=trysnowball-21&linkCode=sl1&linkId=c700aaf68e2ec17135465c578949973b&language=en_GB&ref_=as_li_ss_tl"
       target="_blank"
       rel="noopener noreferrer"
-      className="mt-4 w-full bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors text-center block text-sm font-medium"
-    >
+      className="mt-4 w-full bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors text-center block text-sm font-medium">
       View on Amazon
     </a>
   </div>
@@ -136,10 +138,12 @@ function App() {
   {/* Debt-Free Living */}
   <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-200">
     <div className="text-center mb-4">
-      <div className="bg-gray-100 h-32 w-24 mx-auto rounded mb-4 flex items-center justify-center">
-        <span className="text-gray-400 text-xs">⚡</span>
-      </div>
-    </div>
+  <img 
+    src="https://m.media-amazon.com/images/I/41FZhMnQKtL._SS135_.jpg"
+    alt="Debt-Free Living In 3 Steps book cover"
+    className="h-32 w-24 mx-auto rounded mb-4 object-cover shadow-sm"
+  />
+</div>
     <h3 className="text-lg font-semibold text-gray-900 mb-2 text-center">
       Debt-Free Living In 3 Steps
     </h3>
@@ -158,22 +162,22 @@ function App() {
       </span>
     </div>
     
-      href="https://www.amazon.co.uk/dp/B08HJ5HL75?tag=trysnowball-21&linkCode=sl1&linkId=c700aaf68e2ec17135465c578949973b&language=en_GB&ref_=as_li_ss_tl"
+      <a href="https://www.amazon.co.uk/dp/B08HJ5HL75?tag=trysnowball-21&linkCode=sl1&linkId=c700aaf68e2ec17135465c578949973b&language=en_GB&ref_=as_li_ss_tl"
       target="_blank"
       rel="noopener noreferrer"
-      className="mt-4 w-full bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors text-center block text-sm font-medium"
-    >
+      className="mt-4 w-full bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors text-center block text-sm font-medium">
       View on Amazon
     </a>
-  </div>
-
+    </div>
   {/* Money: A Story of Humanity */}
   <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-200">
     <div className="text-center mb-4">
-      <div className="bg-gray-100 h-32 w-24 mx-auto rounded mb-4 flex items-center justify-center">
-        <span className="text-gray-400 text-xs">📚</span>
-      </div>
-    </div>
+  <img 
+    src="https://m.media-amazon.com/images/I/71IF-2ZV9YL._AC_UY436_QL65_.jpg"
+    alt="Money: A Story of Humanity book cover"
+    className="h-32 w-24 mx-auto rounded mb-4 object-cover shadow-sm"
+  />
+</div>
     <h3 className="text-lg font-semibold text-gray-900 mb-2 text-center">
       Money: A Story of Humanity
     </h3>
@@ -192,15 +196,13 @@ function App() {
       </span>
     </div>
     
-      href="https://amzn.to/3Iv21mD"
+      <a href="https://amzn.to/3Iv21mD"
       target="_blank"
       rel="noopener noreferrer"
-      className="mt-4 w-full bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors text-center block text-sm font-medium"
-    >
+      className="mt-4 w-full bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors text-center block text-sm font-medium">
       View on Amazon
     </a>
   </div>
-
 </div>
 
             <div className="text-center">
