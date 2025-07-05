@@ -64,31 +64,144 @@ function App() {
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-12">
-              <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-                <div className="text-center mb-4">
-                  <div className="bg-gray-100 h-32 w-24 mx-auto rounded mb-4 flex items-center justify-center">
-                    <span className="text-gray-400 text-xs">Book Cover</span>
-                  </div>
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2 text-center">
-                  Example Book Title
-                </h3>
-                <p className="text-sm text-gray-600 mb-2 text-center">
-                  by Author Name
-                </p>
-                <p className="text-sm text-gray-700 mb-4">
-                  Brief description of why this book is valuable.
-                </p>
-                
-                  href="#"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 w-full bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors text-center block text-sm font-medium"
-                >
-                  View on Amazon
-                </a>
-              </div>
-            </div>
+  
+  {/* Rich Dad Poor Dad */}
+  <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-200">
+    <div className="text-center mb-4">
+      <div className="bg-gray-100 h-32 w-24 mx-auto rounded mb-4 flex items-center justify-center">
+        <span className="text-gray-400 text-xs">📘</span>
+      </div>
+    </div>
+    <h3 className="text-lg font-semibold text-gray-900 mb-2 text-center">
+      Rich Dad Poor Dad
+    </h3>
+    <p className="text-sm text-gray-600 mb-2 text-center">
+      by Robert T. Kiyosaki
+    </p>
+    <p className="text-sm text-gray-700 mb-4">
+      The classic that changes how you think about money and assets. Essential reading for anyone wanting to break free from the employee mindset.
+    </p>
+    <div className="space-y-2 mb-4">
+      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800 mr-2">
+        Mindset
+      </span>
+      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+        Foundation
+      </span>
+    </div>
+    
+      href="https://www.amazon.co.uk/dp/B00DO8NUIO?tag=trysnowball-21&linkCode=sl1&linkId=c700aaf68e2ec17135465c578949973b&language=en_GB&ref_=as_li_ss_tl"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="mt-4 w-full bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors text-center block text-sm font-medium"
+    >
+      View on Amazon
+    </a>
+  </div>
+
+  {/* Psychology of Money */}
+  <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-200">
+    <div className="text-center mb-4">
+      <div className="bg-gray-100 h-32 w-24 mx-auto rounded mb-4 flex items-center justify-center">
+        <span className="text-gray-400 text-xs">🧠</span>
+      </div>
+    </div>
+    <h3 className="text-lg font-semibold text-gray-900 mb-2 text-center">
+      Unlocking the Psychology of Money
+    </h3>
+    <p className="text-sm text-gray-600 mb-2 text-center">
+      by Various Authors
+    </p>
+    <p className="text-sm text-gray-700 mb-4">
+      Understand the emotional and psychological forces behind your financial decisions. Perfect for breaking bad money habits and building better ones.
+    </p>
+    <div className="space-y-2 mb-4">
+      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800 mr-2">
+        Psychology
+      </span>
+      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+        Habits
+      </span>
+    </div>
+    
+      href="https://www.amazon.co.uk/dp/B0DPFXXTB8?tag=trysnowball-21&linkCode=sl1&linkId=c700aaf68e2ec17135465c578949973b&language=en_GB&ref_=as_li_ss_tl"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="mt-4 w-full bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors text-center block text-sm font-medium"
+    >
+      View on Amazon
+    </a>
+  </div>
+
+  {/* Debt-Free Living */}
+  <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-200">
+    <div className="text-center mb-4">
+      <div className="bg-gray-100 h-32 w-24 mx-auto rounded mb-4 flex items-center justify-center">
+        <span className="text-gray-400 text-xs">⚡</span>
+      </div>
+    </div>
+    <h3 className="text-lg font-semibold text-gray-900 mb-2 text-center">
+      Debt-Free Living In 3 Steps
+    </h3>
+    <p className="text-sm text-gray-600 mb-2 text-center">
+      by Various Authors
+    </p>
+    <p className="text-sm text-gray-700 mb-4">
+      Practical, actionable steps you can implement immediately. Perfect if you want to start seeing results within the first week.
+    </p>
+    <div className="space-y-2 mb-4">
+      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800 mr-2">
+        Debt Payoff
+      </span>
+      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+        Quick Start
+      </span>
+    </div>
+    
+      href="https://www.amazon.co.uk/dp/B08HJ5HL75?tag=trysnowball-21&linkCode=sl1&linkId=c700aaf68e2ec17135465c578949973b&language=en_GB&ref_=as_li_ss_tl"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="mt-4 w-full bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors text-center block text-sm font-medium"
+    >
+      View on Amazon
+    </a>
+  </div>
+
+  {/* Money: A Story of Humanity */}
+  <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 border border-gray-200">
+    <div className="text-center mb-4">
+      <div className="bg-gray-100 h-32 w-24 mx-auto rounded mb-4 flex items-center justify-center">
+        <span className="text-gray-400 text-xs">📚</span>
+      </div>
+    </div>
+    <h3 className="text-lg font-semibold text-gray-900 mb-2 text-center">
+      Money: A Story of Humanity
+    </h3>
+    <p className="text-sm text-gray-600 mb-2 text-center">
+      by David McWilliams
+    </p>
+    <p className="text-sm text-gray-700 mb-4">
+      Understand money's role throughout history and how it shapes our world today. Great for developing a deeper perspective on financial systems.
+    </p>
+    <div className="space-y-2 mb-4">
+      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mr-2">
+        Education
+      </span>
+      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+        Big Picture
+      </span>
+    </div>
+    
+      href="https://amzn.to/3Iv21mD"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="mt-4 w-full bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors text-center block text-sm font-medium"
+    >
+      View on Amazon
+    </a>
+  </div>
+
+</div>
 
             <div className="text-center">
               <button 
