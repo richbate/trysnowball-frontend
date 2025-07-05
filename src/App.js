@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import DebtTracker from './components/DebtTracker';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
 
   const renderPage = () => {
+    if (currentPage === 'debts') {
+  return <DebtTracker onPageChange={setCurrentPage} />;
+}
     if (currentPage === 'home') {
       return (
         <div className="bg-white text-gray-900">
@@ -407,6 +411,16 @@ function App() {
               >
                 Books
               </button>
+              <button 
+  onClick={() => setCurrentPage('debts')}
+  className={`px-3 py-2 rounded-md text-sm font-medium ${
+    currentPage === 'debts' 
+      ? 'bg-blue-100 text-blue-700' 
+      : 'text-gray-600 hover:text-gray-900'
+  }`}
+>
+  My Debts
+</button>
             </div>
           </div>
         </div>
