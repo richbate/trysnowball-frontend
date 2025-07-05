@@ -56,26 +56,27 @@ function App() {
           Sign up for early access and start your journey to financial freedom.
         </p>
         <form
-          name="signup"
-          method="POST"
-          data-netlify="true"
-          className="max-w-md mx-auto flex flex-col gap-4"
-        >
-          <input type="hidden" name="form-name" value="signup" />
-          <input
-            type="email"
-            name="email"
-            placeholder="you@example.com"
-            required
-            className="px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500"
-          />
-          <button
-            type="submit"
-            className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition font-medium"
-          >
-            Join the waitlist
-          </button>
-        </form>
+  name="signup"
+  method="POST"
+  data-netlify="true"
+  action="/thank-you.html"
+  className="max-w-md mx-auto flex flex-col gap-4"
+>
+  <input type="hidden" name="form-name" value="signup" />
+  <input
+    type="email"
+    name="email"
+    placeholder="you@example.com"
+    required
+    className="px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500"
+  />
+  <button
+    type="submit"
+    className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition font-medium"
+  >
+    Join the waitlist
+  </button>
+</form>
       </section>
 
       {/* Footer */}
