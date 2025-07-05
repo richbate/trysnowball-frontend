@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import WhatIfMachine from './components/whatifmachine';
+import WhatIfMachine from '../components/whatifmachine';
 
 // Simple Navigation Component
 const Navigation = ({ currentPage, onPageChange }) => {
