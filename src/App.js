@@ -22,6 +22,66 @@ function App() {
               Try the What If Machine
             </button>
           </header>
+          {/* Help & Support Section */}
+<section className="bg-blue-50 py-16 px-6 border-t">
+  <div className="max-w-4xl mx-auto text-center">
+    <h2 className="text-2xl font-semibold text-gray-900 mb-6">
+      Need Additional Support?
+    </h2>
+    <div className="bg-white rounded-lg p-8 shadow-sm border border-blue-200">
+      <p className="text-gray-700 text-lg mb-6 leading-relaxed">
+        TrySnowball is a tool to help people find effective ways to clear debt. If you're struggling to repay or feeling overwhelmed, please reach out to any of these registered charities who are well-placed to help. <strong>You are not alone.</strong>
+      </p>
+      
+      <div className="grid md:grid-cols-3 gap-6 mt-8">
+        <div className="text-center">
+          <h3 className="font-semibold text-gray-900 mb-2">StepChange</h3>
+          <p className="text-sm text-gray-600 mb-3">Free debt advice charity</p>
+          <a 
+            href="https://www.stepchange.org" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+          >
+            stepchange.org
+          </a>
+        </div>
+        
+        <div className="text-center">
+          <h3 className="font-semibold text-gray-900 mb-2">Citizens Advice</h3>
+          <p className="text-sm text-gray-600 mb-3">Free, confidential advice</p>
+          <a 
+            href="https://www.citizensadvice.org.uk" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+          >
+            citizensadvice.org.uk
+          </a>
+        </div>
+        
+        <div className="text-center">
+          <h3 className="font-semibold text-gray-900 mb-2">National Debtline</h3>
+          <p className="text-sm text-gray-600 mb-3">Free debt advice helpline</p>
+          <a 
+            href="https://www.nationaldebtline.org" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+          >
+            nationaldebtline.org
+          </a>
+        </div>
+      </div>
+      
+      <div className="mt-8 pt-6 border-t border-gray-200">
+        <p className="text-sm text-gray-600">
+          <strong>Crisis support:</strong> If you're experiencing a mental health crisis, contact <a href="https://www.samaritans.org" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">Samaritans</a> on <strong>116 123</strong> (free, 24/7)
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
           <footer className="text-center text-sm py-8 bg-gray-100 border-t text-gray-500">
             © {new Date().getFullYear()} TrySnowball. Built in the UK with caffeine, clarity, and care.
           </footer>
