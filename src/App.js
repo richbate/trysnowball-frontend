@@ -22,6 +22,34 @@ function App() {
               Try the What If Machine
             </button>
           </header>
+          {/* About Section */}
+<section className="py-16 px-6 max-w-3xl mx-auto text-center">
+  <h2 className="text-3xl font-bold mb-6">What is TrySnowball?</h2>
+  <p className="text-lg opacity-80 leading-relaxed">
+    TrySnowball is part planner, part progress tracker, part motivational coach. It helps you stay focused, build better money habits, and clear debt faster — with less stress and more clarity.
+  </p>
+</section>
+
+{/* What If Machine Teaser */}
+<section className="bg-gray-50 py-16 px-6 text-center border-t">
+  <div className="max-w-4xl mx-auto">
+    <h2 className="text-2xl font-bold mb-4">The What If Machine</h2>
+    <div className="bg-white shadow-md rounded-xl p-6 max-w-xl mx-auto">
+      <p className="text-gray-700 text-lg mb-4">
+        Ever wonder how much faster you'd be debt-free if you skipped that £80 gym membership or cut Friday takeaways?
+      </p>
+      <p className="text-gray-600 mb-6">
+        TrySnowball shows you how small changes lead to big progress. No judgment. Just smart insight.
+      </p>
+      <button
+        onClick={() => setCurrentPage('what-if')}
+        className="inline-block bg-indigo-600 text-white px-5 py-2 rounded-full font-medium hover:bg-indigo-700 transition"
+      >
+        Try It Now
+      </button>
+    </div>
+  </div>
+</section>
           {/* Help & Support Section */}
 <section className="bg-blue-50 py-16 px-6 border-t">
   <div className="max-w-4xl mx-auto text-center">
