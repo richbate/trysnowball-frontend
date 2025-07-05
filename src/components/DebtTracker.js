@@ -73,7 +73,7 @@ const DebtTracker = ({ onPageChange }) => {
   const totalDebt = debts.reduce((sum, debt) => sum + debt.amount, 0);
   const totalMinPayments = debts.reduce((sum, debt) => sum + debt.regularPayment, 0);
 
-  // Enhanced debt payoff calculation with month-by-month breakdown
+  // Enhanced debt payoff calculation with month-by-month breakdown - PROPERLY FIXED
   const calculateDetailedPayoff = () => {
     if (debts.length === 0) return { months: [], totalMonths: 0 };
     
@@ -118,11 +118,29 @@ const DebtTracker = ({ onPageChange }) => {
       const initialLength = remainingDebts.length;
       remainingDebts = remainingDebts.filter(debt => debt.amount > 0.01);
       
-      // If we paid off a debt, add its minimum payment to available payment
-      if (remainingDebts.length < initialLength) {
-        const paidOffDebt = sortedDebts.find(d => !remainingDebts.find(rd => rd.id === d.id));
-        if (paidOffDebt) {
-          availablePayment += paidOffDebt.regularPayment;
+      // If we paid off debts, add their minimum payments to available payment
+      const debtsRemoved = initialLength - remainingDebts.length;
+      if (debtsRemoved > 0) {
+        // Calculate total payments from removed debts
+        let additionalPayment = 0;
+        for (const originalDebt of sortedDebts) {
+          let stillExists = false;
+          for (const remaining of remainingDebts) {
+            if (remaining.id === originalDebt.id) {
+              stillExists = true;
+              break;
+            }
+          }
+          if (!stillExists) {
+            additionalPayment += originalDebt.regularPayment;
+          }
+        }
+        // Only add payments from debts that were just paid off this month
+        if (additionalPayment > 0) {
+          availablePayment = totalMinPayments + extraPayment;
+          for (const remaining of remainingDebts) {
+            availablePayment += remaining.regularPayment;
+          }
         }
       }
       
@@ -135,232 +153,233 @@ const DebtTracker = ({ onPageChange }) => {
   const payoffData = calculateDetailedPayoff();
 
   // Enhanced chart component with stacked areas
-const PayoffChart = ({ data, debts }) => {
-  if (!data || data.length === 0) return null;
+  const PayoffChart = ({ data, debts }) => {
+    if (!data || data.length === 0) return null;
 
-  const maxBalance = Math.max(...data.map(d => d.total));
-  const chartHeight = 300;
-  const chartWidth = Math.min(1000, Math.max(600, data.length * 6));
-  const colors = [
-    '#ef4444', // red
-    '#f97316', // orange  
-    '#eab308', // yellow
-    '#22c55e', // green
-    '#3b82f6', // blue
-    '#8b5cf6', // purple
-    '#ec4899', // pink
-    '#10b981'  // emerald
-  ];
+    const maxBalance = Math.max(...data.map(d => d.total));
+    const chartHeight = 300;
+    const chartWidth = Math.min(1000, Math.max(600, data.length * 6));
+    const colors = [
+      '#ef4444', // red
+      '#f97316', // orange  
+      '#eab308', // yellow
+      '#22c55e', // green
+      '#3b82f6', // blue
+      '#8b5cf6', // purple
+      '#ec4899', // pink
+      '#10b981'  // emerald
+    ];
 
-  // Create stacked data
-  const stackedData = data.map(monthData => {
-    let stackedValues = [];
-    let runningTotal = 0;
-    
-    debts.forEach((debt, index) => {
-      const debtAmount = monthData[debt.name] || 0;
-      stackedValues.push({
-        name: debt.name,
-        value: debtAmount,
-        stackStart: runningTotal,
-        stackEnd: runningTotal + debtAmount,
-        color: colors[index % colors.length]
-      });
-      runningTotal += debtAmount;
-    });
-    
-    return {
-      month: monthData.month,
-      total: monthData.total,
-      stacks: stackedValues
-    };
-  });
-
-  const getYPosition = (value) => chartHeight - (value / maxBalance) * chartHeight;
-  const getXPosition = (index) => (index / (data.length - 1)) * chartWidth;
-
-  return (
-    <div className="bg-white p-6 rounded-lg border border-gray-200">
-      <div className="flex justify-between items-center mb-6">
-        <h3 className="text-xl font-semibold text-gray-900">Debt Payoff Journey</h3>
-        <div className="text-sm text-gray-500">
-          {data.length} months to freedom
-        </div>
-      </div>
+    // Create stacked data
+    const stackedData = data.map(monthData => {
+      let stackedValues = [];
+      let runningTotal = 0;
       
-      <div className="overflow-x-auto">
-        <div style={{ width: `${chartWidth}px`, height: `${chartHeight + 60}px` }} className="relative">
-          
-          {/* Chart container with padding for labels */}
-          <div className="relative" style={{ marginLeft: '60px', marginBottom: '40px', width: `${chartWidth}px`, height: `${chartHeight}px` }}>
+      debts.forEach((debt, index) => {
+        const debtAmount = monthData[debt.name] || 0;
+        stackedValues.push({
+          name: debt.name,
+          value: debtAmount,
+          stackStart: runningTotal,
+          stackEnd: runningTotal + debtAmount,
+          color: colors[index % colors.length]
+        });
+        runningTotal += debtAmount;
+      });
+      
+      return {
+        month: monthData.month,
+        total: monthData.total,
+        stacks: stackedValues
+      };
+    });
+
+    const getYPosition = (value) => chartHeight - (value / maxBalance) * chartHeight;
+    const getXPosition = (index) => (index / (data.length - 1)) * chartWidth;
+
+    return (
+      <div className="bg-white p-6 rounded-lg border border-gray-200">
+        <div className="flex justify-between items-center mb-6">
+          <h3 className="text-xl font-semibold text-gray-900">Debt Payoff Journey</h3>
+          <div className="text-sm text-gray-500">
+            {data.length} months to freedom
+          </div>
+        </div>
+        
+        <div className="overflow-x-auto">
+          <div style={{ width: `${chartWidth}px`, height: `${chartHeight + 60}px` }} className="relative">
             
-            {/* Y-axis labels */}
-            <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-500" style={{ marginLeft: '-50px', width: '45px' }}>
-              <span className="text-right">£{Math.round(maxBalance).toLocaleString()}</span>
-              <span className="text-right">£{Math.round(maxBalance * 0.75).toLocaleString()}</span>
-              <span className="text-right">£{Math.round(maxBalance * 0.5).toLocaleString()}</span>
-              <span className="text-right">£{Math.round(maxBalance * 0.25).toLocaleString()}</span>
-              <span className="text-right">£0</span>
-            </div>
-            
-            {/* Chart SVG */}
-            <svg width={chartWidth} height={chartHeight} className="border-l-2 border-b-2 border-gray-300">
-              {/* Grid lines */}
-              {[0.25, 0.5, 0.75].map((percentage, i) => (
-                <line
-                  key={i}
-                  x1="0"
-                  y1={chartHeight * percentage}
-                  x2={chartWidth}
-                  y2={chartHeight * percentage}
-                  stroke="#f3f4f6"
-                  strokeWidth="1"
-                />
-              ))}
+            {/* Chart container with padding for labels */}
+            <div className="relative" style={{ marginLeft: '60px', marginBottom: '40px', width: `${chartWidth}px`, height: `${chartHeight}px` }}>
               
-              {/* Vertical grid lines */}
-              {data.filter((_, i) => i % 12 === 0).map((_, i) => (
-                <line
-                  key={i}
-                  x1={getXPosition(i * 12)}
-                  y1="0"
-                  x2={getXPosition(i * 12)}
-                  y2={chartHeight}
-                  stroke="#f9fafb"
-                  strokeWidth="1"
-                />
-              ))}
+              {/* Y-axis labels */}
+              <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-500" style={{ marginLeft: '-50px', width: '45px' }}>
+                <span className="text-right">£{Math.round(maxBalance).toLocaleString()}</span>
+                <span className="text-right">£{Math.round(maxBalance * 0.75).toLocaleString()}</span>
+                <span className="text-right">£{Math.round(maxBalance * 0.5).toLocaleString()}</span>
+                <span className="text-right">£{Math.round(maxBalance * 0.25).toLocaleString()}</span>
+                <span className="text-right">£0</span>
+              </div>
               
-              {/* Stacked areas for each debt */}
-              {debts.map((debt, debtIndex) => {
-                const color = colors[debtIndex % colors.length];
-                
-                // Create path for this debt's area
-                let pathData = '';
-                
-                // Start from bottom of previous debt or bottom
-                stackedData.forEach((monthData, i) => {
-                  const x = getXPosition(i);
-                  const stackInfo = monthData.stacks[debtIndex];
-                  const yBottom = getYPosition(stackInfo.stackStart);
-                  const yTop = getYPosition(stackInfo.stackEnd);
-                  
-                  if (i === 0) {
-                    pathData += `M ${x} ${yBottom} L ${x} ${yTop}`;
-                  } else {
-                    pathData += ` L ${x} ${yTop}`;
-                  }
-                });
-                
-                // Complete the area by going back along the bottom
-                for (let i = stackedData.length - 1; i >= 0; i--) {
-                  const x = getXPosition(i);
-                  const stackInfo = stackedData[i].stacks[debtIndex];
-                  const yBottom = getYPosition(stackInfo.stackStart);
-                  pathData += ` L ${x} ${yBottom}`;
-                }
-                
-                pathData += ' Z'; // Close the path
-                
-                return (
-                  <path
-                    key={debt.id}
-                    d={pathData}
-                    fill={color}
-                    fillOpacity="0.8"
-                    stroke={color}
+              {/* Chart SVG */}
+              <svg width={chartWidth} height={chartHeight} className="border-l-2 border-b-2 border-gray-300">
+                {/* Grid lines */}
+                {[0.25, 0.5, 0.75].map((percentage, i) => (
+                  <line
+                    key={i}
+                    x1="0"
+                    y1={chartHeight * percentage}
+                    x2={chartWidth}
+                    y2={chartHeight * percentage}
+                    stroke="#f3f4f6"
                     strokeWidth="1"
                   />
+                ))}
+                
+                {/* Vertical grid lines */}
+                {data.filter((_, i) => i % 12 === 0).map((_, i) => (
+                  <line
+                    key={i}
+                    x1={getXPosition(i * 12)}
+                    y1="0"
+                    x2={getXPosition(i * 12)}
+                    y2={chartHeight}
+                    stroke="#f9fafb"
+                    strokeWidth="1"
+                  />
+                ))}
+                
+                {/* Stacked areas for each debt */}
+                {debts.map((debt, debtIndex) => {
+                  const color = colors[debtIndex % colors.length];
+                  
+                  // Create path for this debt's area
+                  let pathData = '';
+                  
+                  // Start from bottom of previous debt or bottom
+                  stackedData.forEach((monthData, i) => {
+                    const x = getXPosition(i);
+                    const stackInfo = monthData.stacks[debtIndex];
+                    const yBottom = getYPosition(stackInfo.stackStart);
+                    const yTop = getYPosition(stackInfo.stackEnd);
+                    
+                    if (i === 0) {
+                      pathData += `M ${x} ${yBottom} L ${x} ${yTop}`;
+                    } else {
+                      pathData += ` L ${x} ${yTop}`;
+                    }
+                  });
+                  
+                  // Complete the area by going back along the bottom
+                  for (let i = stackedData.length - 1; i >= 0; i--) {
+                    const x = getXPosition(i);
+                    const stackInfo = stackedData[i].stacks[debtIndex];
+                    const yBottom = getYPosition(stackInfo.stackStart);
+                    pathData += ` L ${x} ${yBottom}`;
+                  }
+                  
+                  pathData += ' Z'; // Close the path
+                  
+                  return (
+                    <path
+                      key={debt.id}
+                      d={pathData}
+                      fill={color}
+                      fillOpacity="0.8"
+                      stroke={color}
+                      strokeWidth="1"
+                    />
+                  );
+                })}
+                
+                {/* Total debt outline */}
+                <polyline
+                  fill="none"
+                  stroke="#1f2937"
+                  strokeWidth="2"
+                  points={stackedData.map((d, i) => 
+                    `${getXPosition(i)},${getYPosition(d.total)}`
+                  ).join(' ')}
+                />
+                
+                {/* Hover points */}
+                {stackedData.filter((_, i) => i % 6 === 0).map((d, i) => (
+                  <circle
+                    key={i}
+                    cx={getXPosition(i * 6)}
+                    cy={getYPosition(d.total)}
+                    r="3"
+                    fill="#1f2937"
+                    className="hover:r-5 transition-all cursor-pointer"
+                  />
+                ))}
+              </svg>
+              
+              {/* X-axis labels */}
+              <div className="absolute bottom-0 w-full flex justify-between text-xs text-gray-500" style={{ marginTop: '10px' }}>
+                <span>Start</span>
+                {data.filter((_, i) => i % Math.max(12, Math.floor(data.length / 6)) === 0).slice(1, -1).map((d, i) => (
+                  <span key={i}>
+                    {Math.floor(d.month / 12)}yr {d.month % 12}mo
+                  </span>
+                ))}
+                <span>Debt Free! 🎉</span>
+              </div>
+            </div>
+            
+            {/* Enhanced Legend */}
+            <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
+              {debts.map((debt, index) => {
+                const color = colors[index % colors.length];
+                const finalAmount = data[data.length - 1]?.[debt.name] || 0;
+                const isCompleted = finalAmount < 1;
+                
+                return (
+                  <div key={debt.id} className="flex items-center space-x-2 p-2 bg-gray-50 rounded-lg">
+                    <div 
+                      className="w-4 h-4 rounded-sm border border-gray-300" 
+                      style={{ backgroundColor: color }}
+                    ></div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-gray-900 truncate">
+                        {debt.name}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        {isCompleted ? '✅ Paid off!' : `£${Math.round(finalAmount).toLocaleString()} left`}
+                      </p>
+                    </div>
+                  </div>
                 );
               })}
-              
-              {/* Total debt outline */}
-              <polyline
-                fill="none"
-                stroke="#1f2937"
-                strokeWidth="2"
-                points={stackedData.map((d, i) => 
-                  `${getXPosition(i)},${getYPosition(d.total)}`
-                ).join(' ')}
-              />
-              
-              {/* Hover points */}
-              {stackedData.filter((_, i) => i % 6 === 0).map((d, i) => (
-                <circle
-                  key={i}
-                  cx={getXPosition(i * 6)}
-                  cy={getYPosition(d.total)}
-                  r="3"
-                  fill="#1f2937"
-                  className="hover:r-5 transition-all cursor-pointer"
-                />
-              ))}
-            </svg>
+            </div>
             
-            {/* X-axis labels */}
-            <div className="absolute bottom-0 w-full flex justify-between text-xs text-gray-500" style={{ marginTop: '10px' }}>
-              <span>Start</span>
-              {data.filter((_, i) => i % Math.max(12, Math.floor(data.length / 6)) === 0).slice(1, -1).map((d, i) => (
-                <span key={i}>
-                  {Math.floor(d.month / 12)}yr {d.month % 12}mo
-                </span>
-              ))}
-              <span>Debt Free! 🎉</span>
-            </div>
-          </div>
-          
-          {/* Enhanced Legend */}
-          <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
-            {debts.map((debt, index) => {
-              const color = colors[index % colors.length];
-              const finalAmount = data[data.length - 1]?.[debt.name] || 0;
-              const isCompleted = finalAmount < 1;
-              
-              return (
-                <div key={debt.id} className="flex items-center space-x-2 p-2 bg-gray-50 rounded-lg">
-                  <div 
-                    className="w-4 h-4 rounded-sm border border-gray-300" 
-                    style={{ backgroundColor: color }}
-                  ></div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 truncate">
-                      {debt.name}
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      {isCompleted ? '✅ Paid off!' : `£${Math.round(finalAmount).toLocaleString()} left`}
-                    </p>
-                  </div>
+            {/* Chart insights */}
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+              <div className="bg-blue-50 p-4 rounded-lg">
+                <div className="text-lg font-bold text-blue-900">
+                  £{maxBalance.toLocaleString()}
                 </div>
-              );
-            })}
-          </div>
-          
-          {/* Chart insights */}
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-            <div className="bg-blue-50 p-4 rounded-lg">
-              <div className="text-lg font-bold text-blue-900">
-                £{maxBalance.toLocaleString()}
+                <div className="text-sm text-blue-700">Starting Debt</div>
               </div>
-              <div className="text-sm text-blue-700">Starting Debt</div>
-            </div>
-            <div className="bg-green-50 p-4 rounded-lg">
-              <div className="text-lg font-bold text-green-900">
-                {Math.floor(data.length / 12)} years, {data.length % 12} months
+              <div className="bg-green-50 p-4 rounded-lg">
+                <div className="text-lg font-bold text-green-900">
+                  {Math.floor(data.length / 12)} years, {data.length % 12} months
+                </div>
+                <div className="text-sm text-green-700">To Freedom</div>
               </div>
-              <div className="text-sm text-green-700">To Freedom</div>
-            </div>
-            <div className="bg-purple-50 p-4 rounded-lg">
-              <div className="text-lg font-bold text-purple-900">
-                {debts.length}
+              <div className="bg-purple-50 p-4 rounded-lg">
+                <div className="text-lg font-bold text-purple-900">
+                  {debts.length}
+                </div>
+                <div className="text-sm text-purple-700">Debts to Conquer</div>
               </div>
-              <div className="text-sm text-purple-700">Debts to Conquer</div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-6xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -517,7 +536,7 @@ const PayoffChart = ({ data, debts }) => {
         {/* Chart Section */}
         {debts.length > 0 && payoffData.months.length > 0 && (
           <div className="mb-8">
-            <PayoffChart data={payoffData.months} />
+            <PayoffChart data={payoffData.months} debts={debts} />
           </div>
         )}
 
