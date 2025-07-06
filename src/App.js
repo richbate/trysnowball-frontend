@@ -1,8 +1,22 @@
 import React, { useState } from 'react';
 import DebtTracker from './components/DebtTracker';
+import Auth, { useAuth } from './components/Auth';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
+  
+  // Add this right after the useState line:
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div>Loading...</div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <Auth onAuthSuccess={() => {}} />;
+  }
 
   const renderPage = () => {
     if (currentPage === 'debts') {
