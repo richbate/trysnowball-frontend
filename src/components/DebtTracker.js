@@ -1,5 +1,20 @@
 import React, { useState, useEffect } from 'react';
 
+// Payment Schedule Component - shows month-by-month breakdown
+const PaymentSchedule = ({ data, debts, extraPayment }) => {
+  if (!data || data.length === 0) return null;
+
+  const totalMinPayments = debts.reduce((sum, debt) => sum + debt.regularPayment, 0);
+
+  return (
+    <div className="bg-white p-6 rounded-lg border border-gray-200">
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-xl font-semibold text-gray-900">Payment Schedule</h3>
+        <div className="text-sm text-gray-500">
+          Month-by-month breakdown for verification
+        </div>
+      </div>
+
 const DebtTracker = ({ onPageChange }) => {
   const [debts, setDebts] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
@@ -540,6 +555,177 @@ const DebtTracker = ({ onPageChange }) => {
           </div>
         )}
 
+      {/* Payment Summary */}
+      <div className="bg-blue-50 rounded-lg p-4 mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="text-center">
+          <div className="text-lg font-bold text-blue-900">
+            £{totalMinPayments.toLocaleString()}
+          </div>
+          <div className="text-sm text-blue-700">Total Minimums</div>
+        </div>
+        <div className="text-center">
+          <div className="text-lg font-bold text-blue-900">
+            £{extraPayment.toLocaleString()}
+          </div>
+          <div className="text-sm text-blue-700">Extra Payment</div>
+        </div>
+        <div className="text-center">
+          <div className="text-lg font-bold text-blue-900">
+            £{(totalMinPayments + extraPayment).toLocaleString()}
+          </div>
+          <div className="text-sm text-blue-700">Total Monthly</div>
+        </div>
+      </div>
+
+      {/* Schedule Table */}
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b-2 border-gray-200 bg-gray-50">
+              <th className="text-left py-3 px-2 font-semibold">Month</th>
+              <th className="text-left py-3 px-2 font-semibold">Target Debt</th>
+              <th className="text-right py-3 px-2 font-semibold">Payment</th>
+              <th className="text-right py-3 px-2 font-semibold">Interest</th>
+              <th className="text-right py-3 px-2 font-semibold">Principal</th>
+              <th className="text-right py-3 px-2 font-semibold">New Balance</th>
+              <th className="text-right py-3 px-2 font-semibold">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.slice(0, 12).map((monthData, index) => {
+              // Find which debt was the target this month (smallest remaining)
+              const targetDebt = debts.find(debt => {
+                const balance = monthData[debt.name] || 0;
+                const prevBalance = index > 0 ? (data[index - 1][debt.name] || debt.amount) : debt.amount;
+                return balance < prevBalance && balance > 0; // This debt was paid down
+              }) || debts.find(debt => (monthData[debt.name] || 0) > 0); // Fallback to first remaining debt
+
+              if (!targetDebt) return null;
+
+              const currentBalance = monthData[targetDebt.name] || 0;
+              const previousBalance = index > 0 ? (data[index - 1][targetDebt.name] || targetDebt.amount) : targetDebt.amount;
+              
+              const monthlyInterest = (targetDebt.interest / 100 / 12) * previousBalance;
+              const targetPayment = targetDebt.regularPayment + (index === 0 || currentBalance > 0 ? extraPayment : 0);
+              const principalPayment = Math.min(targetPayment - monthlyInterest, previousBalance);
+              
+              const isPaidOff = currentBalance < 1;
+              
+              return (
+                <tr key={index} className={`border-b border-gray-100 ${isPaidOff ? 'bg-green-50' : ''}`}>
+                  <td className="py-3 px-2 font-medium">
+                    {index + 1}
+                  </td>
+                  <td className="py-3 px-2">
+                    <div className="flex items-center">
+                      <span className="font-medium">{targetDebt.name}</span>
+                      {isPaidOff && <span className="ml-2 text-green-600">✅</span>}
+                    </div>
+                  </td>
+                  <td className="py-3 px-2 text-right font-medium">
+                    £{targetPayment.toFixed(2)}
+                  </td>
+                  <td className="py-3 px-2 text-right text-red-600">
+                    £{monthlyInterest.toFixed(2)}
+                  </td>
+                  <td className="py-3 px-2 text-right text-green-600">
+                    £{principalPayment.toFixed(2)}
+                  </td>
+                  <td className="py-3 px-2 text-right font-medium">
+                    £{currentBalance.toFixed(2)}
+                  </td>
+                  <td className="py-3 px-2 text-right">
+                    {isPaidOff ? (
+                      <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">
+                        PAID OFF
+                      </span>
+                    ) : (
+                      <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
+                        In Progress
+                      </span>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Show more link if there are more than 12 months */}
+      {data.length > 12 && (
+        <div className="text-center mt-4">
+          <button className="text-blue-600 hover:text-blue-700 text-sm">
+            Show all {data.length} months →
+          </button>
+        </div>
+      )}
+
+      {/* Monthly Verification Section */}
+      <div className="mt-8 bg-yellow-50 rounded-lg p-6 border border-yellow-200">
+        <h4 className="text-lg font-semibold text-yellow-900 mb-4">
+          💪 Monthly Verification (Coming Soon)
+        </h4>
+        <div className="text-sm text-yellow-800 space-y-2">
+          <p><strong>Next month, we'll ask you:</strong></p>
+          <ul className="list-disc list-inside space-y-1 ml-4">
+            <li>"Did you make your planned payment to {debts[0]?.name}?"</li>
+            <li>"Were there any unexpected interest charges?"</li>
+            <li>"Did you make any new purchases on this debt?"</li>
+            <li>"What's your current balance?"</li>
+          </ul>
+          <p className="mt-3 font-medium">This keeps you accountable and adjusts your plan in real-time!</p>
+        </div>
+      </div>
+
+      {/* Debt Summary Table */}
+      <div className="mt-8">
+        <h4 className="text-lg font-semibold text-gray-900 mb-4">All Debts Status</h4>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {debts.map((debt, index) => {
+            const currentBalance = data[0]?.[debt.name] || debt.amount;
+            const finalBalance = data[data.length - 1]?.[debt.name] || 0;
+            const isPaidOff = finalBalance < 1;
+            const monthsPaidOff = data.findIndex(month => (month[debt.name] || 0) < 1) + 1;
+            
+            return (
+              <div key={debt.id} className="bg-gray-50 rounded-lg p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <h5 className="font-medium text-gray-900">{debt.name}</h5>
+                  {isPaidOff && <span className="text-green-600">✅</span>}
+                </div>
+                <div className="space-y-1 text-sm text-gray-600">
+                  <div className="flex justify-between">
+                    <span>Starting:</span>
+                    <span>£{debt.amount.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Current:</span>
+                    <span>£{currentBalance.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Interest Rate:</span>
+                    <span>{debt.interest}%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Min Payment:</span>
+                    <span>£{debt.regularPayment}</span>
+                  </div>
+                  {isPaidOff && (
+                    <div className="flex justify-between font-medium text-green-600">
+                      <span>Paid off in:</span>
+                      <span>{monthsPaidOff} months</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
         {/* Summary & Snowball */}
         {debts.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
