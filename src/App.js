@@ -1,10 +1,27 @@
 import React, { useState } from 'react';
 import DebtTracker from './components/DebtTracker';
-import Auth, { useAuth } from './components/Auth';
+import Auth, { useAuth } from './components/auth';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('home');
+  const [currentPage, setCurrentPage] = useState('home'); 
+  const { user, loading } = useAuth();  // ADD THIS LINE
+ // ADD THESE LINES:
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div>Loading...</div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <Auth onAuthSuccess={() => {}} />;
+  }
+
+  // Your existing renderPage function stays the same...
+  const renderPage = () => {
   
+
   // Add this right after the useState line:
   if (loading) {
     return (
