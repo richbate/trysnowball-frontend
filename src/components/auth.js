@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+console.log('🧪 Supabase inside auth.js:', supabase);
 
 const Auth = ({ onAuthSuccess }) => {
   const [loading, setLoading] = useState(false);
