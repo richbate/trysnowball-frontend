@@ -450,7 +450,7 @@ function App() {
       : 'text-gray-600 hover:text-gray-900'
   }`}
 >
-  My Debts
+ My Debts
 </button>
             </div>
           </div>
@@ -460,6 +460,6 @@ function App() {
       {renderPage()}
     </div>
   );
-}
+} // <-- Make sure this closing brace is here
 
-export default App;
+export default App; // <-- This should be outside the function
