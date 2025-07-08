@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import DebtTracker from './components/DebtTracker';
 //import Auth, { useAuth } from './components/auth';
 import WhatIfMachine from './pages/WhatIfMachine';
+import Home from './pages/Home';
+import Library from './pages/Library';
 
 // const user = true;
 const loading = false;
@@ -22,39 +24,31 @@ function App() {
   //  return <Auth onAuthSuccess={() => {}} />;
   //}
 
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'home':
-        return (
-          <div className="bg-white text-gray-900">
-            {/* Your full homepage code goes here */}
-          </div>
-        );
+const renderPage = () => {
+  switch (currentPage) {
+    case 'home':
+      return <Home />;
 
-      case 'debts':
-        return <DebtTracker onPageChange={setCurrentPage} />;
+    case 'library':
+      return <Library />;
 
-      case 'what-if':
-        return <WhatIfMachine onPageChange={setCurrentPage} />;
+    case 'debts':
+      return <DebtTracker onPageChange={setCurrentPage} />;
 
-      case 'books':
-        return (
-          <div className="min-h-screen bg-gray-50">
-            {/* Your full books section */}
-          </div>
-        );
+    case 'what-if':
+      return <WhatIfMachine onPageChange={setCurrentPage} />;
 
-      case 'library':
-        return (
-          <div className="min-h-screen bg-gray-50">
-            {/* Your full library section */}
-          </div>
-        );
+    case 'books':
+      return (
+        <div className="min-h-screen bg-gray-50">
+          {/* Your full books section */}
+        </div>
+      );
 
-      default:
-        return <div className="p-10 text-center text-gray-600">Page not found.</div>;
-    }
-  };
+    default:
+      return <div className="p-10 text-center text-gray-600">Page not found.</div>;
+  }
+};
 
   return (
     <div>
