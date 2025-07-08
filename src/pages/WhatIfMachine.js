@@ -18,86 +18,90 @@ const WhatIfMachine = () => {
   ];
 
   const totalMinPayments = debts.reduce((sum, debt) => sum + debt.minPayment, 0);
-  const totalDebt = debts.reduce((sum, debt) => sum + debt.balance, 0);
+  // const totalDebt = debts.reduce((sum, debt) => sum + debt.balance, 0);
 
-  const calculateScenarios = () => {
-    const scenarios = {};
+  const calculateScenarios = (debts, extraPayment, totalMinPayments) => {
+  const scenarios = {};
 
-    // Do Nothing (interest only)
-    const doNothingData = [];
-    for (let month = 0; month <= 60; month++) {
-      const total = debts.reduce((acc, debt) => {
-        const monthlyRate = debt.rate / 12 / 100;
-        const futureBalance = debt.balance * Math.pow(1 + monthlyRate, month);
-        return acc + futureBalance;
-      }, 0);
-      doNothingData.push({ month, balance: Math.round(total) });
+  // === Do Nothing Scenario ===
+  const doNothingData = [];
+  for (let month = 0; month <= 60; month++) {
+    const total = debts.reduce((acc, debt) => {
+      const monthlyRate = debt.rate / 12 / 100;
+      const futureBalance = debt.balance * Math.pow(1 + monthlyRate, month);
+      return acc + futureBalance;
+    }, 0);
+    doNothingData.push({ month, balance: Math.round(total) });
+  }
+  scenarios.doNothing = doNothingData;
+
+  // === Minimum Payments Scenario ===
+  const minDebts = JSON.parse(JSON.stringify(debts));
+  const minimumOnlyData = [];
+  let totalMinInterest = 0;
+
+  for (let month = 0; month <= 60; month++) {
+    const total = minDebts.reduce((acc, debt) => acc + debt.balance, 0);
+    minimumOnlyData.push({ month, balance: Math.round(total), interestPaid: totalMinInterest });
+
+    for (let i = 0; i < minDebts.length; i++) {
+      const debt = minDebts[i];
+      if (debt.balance <= 0) continue;
+
+      const interest = debt.balance * (debt.rate / 12 / 100);
+      totalMinInterest += interest;
+
+      const principal = Math.max(debt.minPayment - interest, 0);
+      debt.balance = Math.max(debt.balance - principal, 0);
     }
-    scenarios.doNothing = doNothingData;
+  }
+  scenarios.minimumOnly = minimumOnlyData;
 
-    // Minimum Payments
-    const minDebts = JSON.parse(JSON.stringify(debts));
-    const minimumOnlyData = [];
-    let totalMinInterest = 0;
+  // === Snowball Method Scenario ===
+  const snowballDebts = JSON.parse(JSON.stringify(debts)).sort((a, b) => a.balance - b.balance);
+  const snowballData = [];
+  let totalSnowballInterest = 0;
 
-    for (let month = 0; month <= 60; month++) {
-      const total = minDebts.reduce((acc, debt) => acc + debt.balance, 0);
-      minimumOnlyData.push({ month, balance: Math.round(total), interestPaid: totalMinInterest });
+  for (let month = 0; month <= 60; month++) {
+    const total = snowballDebts.reduce((acc, debt) => acc + debt.balance, 0);
+    snowballData.push({ month, balance: Math.round(total), interestPaid: totalSnowballInterest });
 
-      for (let i = 0; i < minDebts.length; i++) {
-        const debt = minDebts[i];
-        if (debt.balance <= 0) continue;
+    if (total <= 0) break;
 
-        const interest = debt.balance * (debt.rate / 12 / 100);
-        totalMinInterest += interest;
+    let available = totalMinPayments + extraPayment;
 
-        const principal = Math.max(debt.minPayment - interest, 0);
-        debt.balance = Math.max(debt.balance - principal, 0);
-      }
+    for (let i = 0; i < snowballDebts.length; i++) {
+      const debt = snowballDebts[i];
+      if (debt.balance <= 0) continue;
+
+      const interest = debt.balance * (debt.rate / 12 / 100);
+      totalSnowballInterest += interest;
+
+      const minPrincipal = Math.max(debt.minPayment - interest, 0);
+      debt.balance = Math.max(0, debt.balance - minPrincipal);
+      available -= debt.minPayment;
     }
-    scenarios.minimumOnly = minimumOnlyData;
 
-    // Snowball Method
-    const snowballDebts = JSON.parse(JSON.stringify(debts)).sort((a, b) => a.balance - b.balance);
-    const snowballData = [];
-    let totalSnowballInterest = 0;
-
-    for (let month = 0; month <= 60; month++) {
-      const total = snowballDebts.reduce((acc, debt) => acc + debt.balance, 0);
-      snowballData.push({ month, balance: Math.round(total), interestPaid: totalSnowballInterest });
-
-      if (total <= 0) break;
-
-      let available = totalMinPayments + extraPayment;
-
-      for (let i = 0; i < snowballDebts.length; i++) {
-        const debt = snowballDebts[i];
-        if (debt.balance <= 0) continue;
-
-        const interest = debt.balance * (debt.rate / 12 / 100);
-        totalSnowballInterest += interest;
-
-        const minPrincipal = Math.max(debt.minPayment - interest, 0);
-        debt.balance = Math.max(0, debt.balance - minPrincipal);
-        available -= debt.minPayment;
-      }
-
-      if (available > 0) {
-        for (let debt of snowballDebts) {
-          if (debt.balance > 0) {
-            const extraPaymentAmount = Math.min(available, debt.balance);
-            debt.balance -= extraPaymentAmount;
-            break;
-          }
+    if (available > 0) {
+      for (let debt of snowballDebts) {
+        if (debt.balance > 0) {
+          const extraPaymentAmount = Math.min(available, debt.balance);
+          debt.balance -= extraPaymentAmount;
+          break;
         }
       }
     }
-    scenarios.snowball = snowballData;
+  }
+  scenarios.snowball = snowballData;
 
-    return scenarios;
-  };
+  return scenarios;
+};
 
-  const scenarios = useMemo(() => calculateScenarios(), [extraPayment]);
+const scenarios = useMemo(() => calculateScenarios(debts, extraPayment, totalMinPayments), [
+  debts,
+  extraPayment,
+  totalMinPayments,
+]);
 
   const chartData = [];
   for (let i = 0; i < 61; i++) {
@@ -117,8 +121,8 @@ const WhatIfMachine = () => {
   const snowballPayoffMonths = scenarios.snowball.findIndex(p => p.balance < 1);
   const minimumPayoffMonths = scenarios.minimumOnly.findIndex(p => p.balance < 1);
 
-  const snowballInterestPaid = scenarios.snowball[snowballPayoffMonths > 0 ? snowballPayoffMonths : scenarios.snowball.length - 1]?.interestPaid || 0;
-  const minimumInterestPaid = scenarios.minimumOnly[minimumPayoffMonths > 0 ? minimumPayoffMonths : scenarios.minimumOnly.length - 1]?.interestPaid || 0;
+  // const snowballInterestPaid = scenarios.snowball[snowballPayoffMonths > 0 ? snowballPayoffMonths : scenarios.snowball.length - 1]?.interestPaid || 0;
+  // const minimumInterestPaid = scenarios.minimumOnly[minimumPayoffMonths > 0 ? minimumPayoffMonths : scenarios.minimumOnly.length - 1]?.interestPaid || 0;
 
   // Rest of the JSX remains unchanged and should be placed here
   return (
