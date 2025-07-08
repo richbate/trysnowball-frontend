@@ -50,6 +50,17 @@ for (let i = 0; i < minDebts.length; i++) {
 for (let month = 0; month <= 60; month++) {
   const total = minDebts.reduce((acc, debt) => acc + debt.balance, 0);
   minimumOnlyData.push({ month, balance: Math.round(total), interestPaid: totalMinInterest });
+
+  for (let i = 0; i < minDebts.length; i++) {
+    const debt = minDebts[i];
+    if (debt.balance <= 0) continue;
+
+    const interest = debt.balance * (debt.rate / 12 / 100);
+    totalMinInterest += interest;
+
+    const principal = Math.max(debt.minPayment - interest, 0);
+    debt.balance = Math.max(debt.balance - principal, 0);
+  }
 }
       
       // Calculate next month
