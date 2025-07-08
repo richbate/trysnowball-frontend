@@ -51,7 +51,13 @@ const Home = () => {
 
      <section id="signup" className="bg-gray-800 rounded-lg shadow-2xl p-8 my-16 max-w-md mx-auto border border-gray-700">
   <h2 className="text-2xl font-bold mb-6 text-center text-white">Be the first to try it</h2>
-  <form name="signup" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+  <form 
+  name="signup" 
+  method="POST" 
+  data-netlify="true" 
+  data-netlify-honeypot="bot-field"
+  action="/#signup"
+>
     <input type="hidden" name="form-name" value="signup" />
     <p style={{display: 'none'}}>
       <input name="bot-field" />
