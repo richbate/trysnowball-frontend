@@ -4,16 +4,43 @@ import {
   Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
 
-// Static debts to avoid being a useMemo dependency
-const initialDebts = [
-  { name: 'PayPal', balance: 875, rate: 0, minPayment: 50 },
-  { name: 'Virgin', balance: 1654, rate: 20, minPayment: 24.9 },
-  { name: 'Barclaycard', balance: 2930, rate: 20, minPayment: 56 },
-  { name: 'Halifax 1', balance: 2975, rate: 20, minPayment: 131 },
-  { name: 'NatWest', balance: 6486, rate: 0, minPayment: 55 },
-  { name: 'Halifax 2', balance: 8823, rate: 20, minPayment: 254 },
-  { name: 'MBNA', balance: 10198, rate: 20, minPayment: 311 }
-];
+// Generate realistic random debt data
+const generateRandomDebts = () => {
+  const debtTypes = [
+    { name: 'Barclaycard', minRate: 18, maxRate: 29, minLimit: 1500, maxLimit: 5000 },
+    { name: 'Halifax Credit Card', minRate: 16, maxRate: 25, minLimit: 2000, maxLimit: 8000 },
+    { name: 'MBNA Card', minRate: 19, maxRate: 27, minLimit: 3000, maxLimit: 12000 },
+    { name: 'Virgin Money', minRate: 17, maxRate: 24, minLimit: 2500, maxLimit: 6000 },
+    { name: 'Tesco Clubcard', minRate: 22, maxRate: 35, minLimit: 1000, maxLimit: 3500 },
+    { name: 'Personal Loan', minRate: 6, maxRate: 15, minLimit: 5000, maxLimit: 20000 },
+    { name: 'Car Finance', minRate: 3, maxRate: 12, minLimit: 8000, maxLimit: 30000 },
+    { name: 'Overdraft', minRate: 25, maxRate: 40, minLimit: 500, maxLimit: 2500 },
+    { name: 'PayPal Credit', minRate: 0, maxRate: 23, minLimit: 1000, maxLimit: 4000 },
+    { name: 'Store Card', minRate: 28, maxRate: 39, minLimit: 500, maxLimit: 2000 }
+  ];
+
+  // Randomly select 4-7 debts
+  const numDebts = Math.floor(Math.random() * 4) + 4;
+  const selectedTypes = [...debtTypes].sort(() => 0.5 - Math.random()).slice(0, numDebts);
+  
+  return selectedTypes.map((type, index) => {
+    const limit = Math.floor(Math.random() * (type.maxLimit - type.minLimit) + type.minLimit);
+    const utilizationPercent = Math.random() * 85 + 5; // 5% to 90% utilization
+    const balance = Math.floor(limit * (utilizationPercent / 100));
+    const rate = Math.floor(Math.random() * (type.maxRate - type.minRate) + type.minRate);
+    const minPayment = Math.max(25, Math.floor(balance * (Math.random() * 0.02 + 0.02))); // 2-4% of balance, min £25
+    
+    return {
+      name: type.name,
+      balance: Math.round(balance),
+      rate,
+      minPayment: Math.round(minPayment * 100) / 100, // Round to 2 decimal places
+    };
+  });
+};
+
+// Generate random debt data on each page load
+const initialDebts = generateRandomDebts();
 
 // Format currency
 const formatCurrency = (value) => {
