@@ -49,25 +49,29 @@ const Home = () => {
         </div>
       </section>
 
-      <section id="signup" className="bg-gray-800 rounded-lg shadow-2xl p-8 my-16 max-w-md mx-auto border border-gray-700">
-        <h2 className="text-2xl font-bold mb-6 text-center text-white">Be the first to try it</h2>
-        <form name="signup" method="POST" data-netlify="true">
-          <input type="hidden" name="form-name" value="signup" />
-          <input
-            type="email"
-            name="email"
-            placeholder="Your email"
-            required
-            className="w-full p-3 border border-gray-600 rounded-lg mb-4 bg-gray-700 text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none"
-          />
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
-          >
-            Join the waitlist
-          </button>
-        </form>
-      </section>
+     <section id="signup" className="bg-gray-800 rounded-lg shadow-2xl p-8 my-16 max-w-md mx-auto border border-gray-700">
+  <h2 className="text-2xl font-bold mb-6 text-center text-white">Be the first to try it</h2>
+  <form name="signup" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="signup" />
+    <p style={{display: 'none'}}>
+      <input name="bot-field" />
+    </p>
+    
+    <input
+      type="email"
+      name="email"
+      placeholder="Your email"
+      required
+      className="w-full p-3 border border-gray-600 rounded-lg mb-4 bg-gray-700 text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none"
+    />
+    <button
+      type="submit"
+      className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+    >
+      Join the waitlist
+    </button>
+  </form>
+</section>
 
       <footer className="text-center mt-16 text-sm text-gray-400">
         <p>© {new Date().getFullYear()} TrySnowball. Built in the UK.</p>
