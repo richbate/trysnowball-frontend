@@ -36,24 +36,33 @@ const WhatIfMachine = () => {
     scenarios.doNothing = doNothingData;
 
     // Minimum Payments
-    const minDebts = JSON.parse(JSON.stringify(debts));
-    const minimumOnlyData = [];
-    let totalMinInterest = 0;
-    
-    for (let month = 0; month <= 60; month++) {
-      const total = minDebts.reduce((acc, debt) => acc + debt.balance, 0);
-      minimumOnlyData.push({ month, balance: Math.round(total), interestPaid: totalMinInterest });
+const minDebts = JSON.parse(JSON.stringify(debts));
+const minimumOnlyData = [];
+let totalMinInterest = 0;
+
+// Calculate total interest outside of loop to satisfy ESLint
+for (let i = 0; i < minDebts.length; i++) {
+  const debt = minDebts[i];
+  const months = simulateMinimum(debt);
+  totalMinInterest += months.reduce((sum, m) => sum + m.interest, 0);
+}
+
+for (let month = 0; month <= 60; month++) {
+  const total = minDebts.reduce((acc, debt) => acc + debt.balance, 0);
+  minimumOnlyData.push({ month, balance: Math.round(total), interestPaid: totalMinInterest });
+}
       
       // Calculate next month
-      minDebts.forEach(debt => {
-        if (debt.balance <= 0) return;
-        const interest = debt.balance * (debt.rate / 12 / 100);
-        totalMinInterest += interest;
-        const principal = Math.max(debt.minPayment - interest, 0);
-        debt.balance = Math.max(debt.balance - principal, 0);
-      });
-    }
-    scenarios.minimumOnly = minimumOnlyData;
+for (let i = 0; i < minDebts.length; i++) {
+  const debt = minDebts[i];
+  if (debt.balance <= 0) continue;
+
+  const interest = debt.balance * (debt.rate / 12 / 100);
+  totalMinInterest += interest;
+
+  const principal = Math.max(debt.minPayment - interest, 0);
+  debt.balance = Math.max(debt.balance - principal, 0);
+}
 
     // Snowball Method
     const snowballDebts = JSON.parse(JSON.stringify(debts)).sort((a, b) => a.balance - b.balance);
@@ -70,14 +79,17 @@ const WhatIfMachine = () => {
       let available = totalMinPayments + extraPayment;
       
       // Pay minimums first, then extra to smallest debt
-      snowballDebts.forEach(debt => {
-        if (debt.balance <= 0) return;
-        const interest = debt.balance * (debt.rate / 12 / 100);
-        totalSnowballInterest += interest;
-        const minPrincipal = Math.max(debt.minPayment - interest, 0);
-        debt.balance = Math.max(0, debt.balance - minPrincipal);
-        available -= debt.minPayment;
-      });
+for (let i = 0; i < snowballDebts.length; i++) {
+  const debt = snowballDebts[i];
+  if (debt.balance <= 0) continue;
+
+  const interest = debt.balance * (debt.rate / 12 / 100);
+  totalSnowballInterest += interest;
+
+  const minPrincipal = Math.max(debt.minPayment - interest, 0);
+  debt.balance = Math.max(0, debt.balance - minPrincipal);
+  available -= debt.minPayment;
+}
       
       // Apply extra payment to smallest remaining debt
       if (available > 0) {
