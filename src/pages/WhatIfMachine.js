@@ -63,10 +63,7 @@ for (let month = 0; month <= 60; month++) {
   }
 }
       
-      // Calculate next month
-for (let i = 0; i < minDebts.length; i++) {
-  const debt = minDebts[i];
-  if (debt.balance <= 0) continue;
+// Skipping precomputed interest; will calculate during loop
 
   const interest = debt.balance * (debt.rate / 12 / 100);
   totalMinInterest += interest;
