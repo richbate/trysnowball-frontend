@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import DebtTracker from './components/DebtTracker';
-import Auth, { useAuth } from './components/auth';
+//import Auth, { useAuth } from './components/auth';
+import WhatIfMachine from './pages/WhatIfMachine';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home'); 
-  const { user, loading } = useAuth();
+  // const { user, loading } = useAuth();
 
   if (loading) {
     return (
@@ -14,62 +15,47 @@ function App() {
     );
   }
 
-  if (!user) {
-    return <Auth onAuthSuccess={() => {}} />;
-  }
+  // if (!user) {
+  //  return <Auth onAuthSuccess={() => {}} />;
+  //}
 
   const renderPage = () => {
-    if (currentPage === 'debts') {
-      return <DebtTracker onPageChange={setCurrentPage} />;
-    }
-
-    if (currentPage === 'home') {
-      return (
-        <div className="bg-white text-gray-900">
-          {/* Your full homepage code remains here... */}
-          {/* About section, What If teaser, Help & Support, Footer */}
-        </div>
-      );
-    }
-
-    if (currentPage === 'what-if') {
-      return (
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">🔮 What If Machine</h1>
-            <p className="text-xl text-gray-600 mb-8">Coming soon!</p>
-            <button 
-              onClick={() => setCurrentPage('home')}
-              className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition"
-            >
-              Back to Home
-            </button>
+    switch (currentPage) {
+      case 'home':
+        return (
+          <div className="bg-white text-gray-900">
+            {/* Your full homepage code goes here */}
           </div>
-        </div>
-      );
-    }
+        );
 
-    if (currentPage === 'books') {
-      return (
-        <div className="min-h-screen bg-gray-50">
-          {/* Your full books section */}
-        </div>
-      );
-    }
+      case 'debts':
+        return <DebtTracker onPageChange={setCurrentPage} />;
 
-    if (currentPage === 'library') {
-      return (
-        <div className="min-h-screen bg-gray-50">
-          {/* Your full library section */}
-        </div>
-      );
-    }
+      case 'what-if':
+        return <WhatIfMachine onPageChange={setCurrentPage} />;
 
-    return <div className="p-10 text-center text-gray-600">Page not found.</div>;
+      case 'books':
+        return (
+          <div className="min-h-screen bg-gray-50">
+            {/* Your full books section */}
+          </div>
+        );
+
+      case 'library':
+        return (
+          <div className="min-h-screen bg-gray-50">
+            {/* Your full library section */}
+          </div>
+        );
+
+      default:
+        return <div className="p-10 text-center text-gray-600">Page not found.</div>;
+    }
   };
 
   return (
     <div>
+      {/* Navigation */}
       <nav className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -104,6 +90,7 @@ function App() {
         </div>
       </nav>
 
+      {/* Page Content */}
       {renderPage()}
     </div>
   );
