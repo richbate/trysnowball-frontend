@@ -3,6 +3,9 @@ import DebtTracker from './components/DebtTracker';
 //import Auth, { useAuth } from './components/auth';
 import WhatIfMachine from './pages/WhatIfMachine';
 
+// const user = true;
+const loading = false;
+
 function App() {
   const [currentPage, setCurrentPage] = useState('home'); 
   // const { user, loading } = useAuth();
