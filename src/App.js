@@ -1,261 +1,157 @@
 import React, { useState } from 'react';
+import DebtTracker from './pages/MyDebtsPage';
+//import Auth, { useAuth } from './components/auth';
+import WhatIfMachine from './pages/WhatIfMachine';
+import Home from './pages/Home';
+import Library from './pages/Library';
 
-const Library = () => {
-  const [activeTab, setActiveTab] = useState('articles');
+// const user = true;
+const loading = false;
 
-  const articles = [
-    { tag: 'Spending', title: 'Where Does It All Go?', href: 'spending-habits.html', desc: 'Explore the everyday spending leaks...', readTime: '5 min' },
-    { tag: 'Spending', title: 'Audit Your Spending', href: 'audit-spending.html', desc: 'A practical, no-blame guide...', readTime: '8 min' },
-    { tag: 'Saving', title: 'Saving vs. Debt', href: 'saving-vs-debt.html', desc: 'Emergency fund or debt payoff?', readTime: '6 min' },
-    { tag: 'Saving', title: 'Found Money', href: 'found-money.html', desc: 'From skipping takeaways to cancelling subs...', readTime: '4 min' },
-    { tag: 'Debt', title: 'Snowball vs Avalanche', href: 'snowball-vs-avalanche.html', desc: 'Why emotion often beats math.', readTime: '7 min' },
-    { tag: 'Debt', title: 'Minimum Payments Trap', href: 'minimum-payment-trap.html', desc: 'Minimums aren\'t designed to help you...', readTime: '5 min' },
-  ];
+function App() {
+  const [currentPage, setCurrentPage] = useState('home'); 
+  console.log('Current page is:', currentPage);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const tools = [
-    { 
-      title: 'You Need A Budget (YNAB)', 
-      desc: 'The gold standard for zero-based budgeting. Perfect for debt payoff planning.',
-      link: 'https://www.youneedabudget.com',
-      price: '£12/month',
-      badge: 'Popular'
-    },
-    { 
-      title: 'Mint (Free)', 
-      desc: 'Free spending tracker that connects to your bank accounts.',
-      link: 'https://mint.intuit.com',
-      price: 'Free',
-      badge: 'Free'
-    },
-    { 
-      title: 'Debt Payoff Planner', 
-      desc: 'Simple app focused purely on debt elimination strategies.',
-      link: 'https://debtpayoffplanner.com',
-      price: '£3.99',
-      badge: 'Focused'
-    },
-    { 
-      title: 'Spreadsheet Templates', 
-      desc: 'Free Google Sheets templates for budget tracking and debt payoff.',
-      link: 'https://sheets.google.com',
-      price: 'Free',
-      badge: 'DIY'
-    },
-  ];
+  // const { user, loading } = useAuth();
 
-  const books = [
-    { 
-      title: 'The Total Money Makeover', 
-      author: 'Dave Ramsey',
-      desc: 'The debt snowball method explained step-by-step.',
-      link: 'https://amazon.co.uk',
-      price: '£12.99',
-      badge: 'Classic'
-    },
-    { 
-      title: 'Your Money or Your Life', 
-      author: 'Vicki Robin',
-      desc: 'Transform your relationship with money and achieve financial independence.',
-      link: 'https://amazon.co.uk',
-      price: '£14.99',
-      badge: 'Life-changing'
-    },
-    { 
-      title: 'The Richest Man in Babylon', 
-      author: 'George S. Clason',
-      desc: 'Timeless money wisdom in simple parables.',
-      link: 'https://amazon.co.uk',
-      price: '£8.99',
-      badge: 'Timeless'
-    },
-    { 
-      title: 'I Will Teach You to Be Rich', 
-      author: 'Ramit Sethi',
-      desc: 'No-guilt, practical approach to money for younger audiences.',
-      link: 'https://amazon.co.uk',
-      price: '£13.99',
-      badge: 'Practical'
-    },
-  ];
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div>Loading...</div>
+      </div>
+    );
+  }
 
-  const resources = [
-    { 
-      title: 'Debt Snowball Calculator', 
-      desc: 'Calculate your debt-free date with different payment strategies.',
-      link: 'https://www.vertex42.com/Calculators/debt-reduction-calculator.html',
-      type: 'Calculator',
-      buttonText: '🧮 Calculate now'
-    },
-    { 
-      title: 'Monthly Budget Template', 
-      desc: 'Simple spreadsheet to track income, expenses, and debt payments.',
-      link: 'https://www.moneyhelper.org.uk/en/everyday-money/budgeting/budget-planner',
-      type: 'Template',
-      buttonText: 'View template'
-    },
-    { 
-      title: 'Expense Audit Worksheet', 
-      desc: 'Find hidden money leaks in your spending.',
-      link: '#',
-      type: 'Worksheet',
-      buttonText: '🔍 Get worksheet'
-    },
-    { 
-      title: 'CheckMyFile', 
-      desc: 'See your full credit report from all 4 UK agencies. Know where you stand.',
-      link: 'https://www.checkmyfile.com',
-      type: 'Credit Report',
-      buttonText: 'Sign up now'
-    },
-  ];
+  // if (!user) {
+  //  return <Auth onAuthSuccess={() => {}} />;
+  //}
 
-  const tabs = [
-    { id: 'articles', label: '📚 Articles', count: articles.length },
-    { id: 'tools', label: '🛠️ Tools & Apps', count: tools.length },
-    { id: 'books', label: '📖 Books', count: books.length },
-    { id: 'free', label: '🎁 Resources', count: resources.length },
-  ];
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'home':
+        return <Home />;
 
-  const renderArticles = () => (
-    <div className="grid gap-4">
-      {articles.map(({ tag, title, href, desc, readTime }) => (
-        <div key={href} className="p-6 border rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow">
-          <div className="flex items-start justify-between mb-2">
-            <span className="inline-block px-2 py-1 text-xs uppercase bg-blue-100 text-blue-600 rounded-full font-medium">{tag}</span>
-            <span className="text-sm text-gray-500">{readTime}</span>
+      case 'library':
+        return <Library />;
+
+      case 'debts':
+        return <DebtTracker onPageChange={setCurrentPage} />;
+
+      case 'what-if':
+        return <WhatIfMachine onPageChange={setCurrentPage} />;
+
+      //case 'thank-you':
+        // return <ThankYou />;
+
+      case 'books':
+        return (
+          <div className="min-h-screen bg-gray-50">
+            {/* Your full books section */}
           </div>
-          <a href={href} className="text-xl font-semibold text-gray-900 hover:text-blue-600 transition-colors">{title}</a>
-          <p className="text-gray-600 mt-2">{desc}</p>
-        </div>
-      ))}
-    </div>
-  );
+        );
 
-  const renderTools = () => (
-    <div className="grid gap-4 md:grid-cols-2">
-      {tools.map(({ title, desc, link, price, badge }) => (
-        <div key={title} className="p-6 border rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow">
-          <div className="flex items-start justify-between mb-2">
-            <span className="inline-block px-2 py-1 text-xs bg-green-100 text-green-600 rounded-full font-medium">{badge}</span>
-            <span className="text-sm font-semibold text-gray-900">{price}</span>
-          </div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>
-          <p className="text-gray-600 mb-4">{desc}</p>
-          <a 
-            href={link} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
-          >
-            Try it out →
-          </a>
-        </div>
-      ))}
-    </div>
-  );
-
-  const renderBooks = () => (
-    <div className="grid gap-4 md:grid-cols-2">
-      {books.map(({ title, author, desc, link, price, badge }) => (
-        <div key={title} className="p-6 border rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow">
-          <div className="flex items-start justify-between mb-2">
-            <span className="inline-block px-2 py-1 text-xs bg-purple-100 text-purple-600 rounded-full font-medium">{badge}</span>
-            <span className="text-sm font-semibold text-gray-900">{price}</span>
-          </div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-1">{title}</h3>
-          <p className="text-sm text-gray-500 mb-2">by {author}</p>
-          <p className="text-gray-600 mb-4">{desc}</p>
-          <a 
-            href={link} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-flex items-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors text-sm font-medium"
-          >
-            📚 Buy on Amazon →
-          </a>
-        </div>
-      ))}
-    </div>
-  );
-
-  const renderResources = () => (
-    <div className="grid gap-4 md:grid-cols-2">
-      {resources.map(({ title, desc, link, type, buttonText }) => (
-        <div key={title} className="p-6 border rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow">
-          <div className="flex items-start justify-between mb-2">
-            <span className="inline-block px-2 py-1 text-xs bg-emerald-100 text-emerald-600 rounded-full font-medium">{type}</span>
-            <span className="text-sm font-semibold text-emerald-600">FREE</span>
-          </div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>
-          <p className="text-gray-600 mb-4">{desc}</p>
-          <a 
-            href={link} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-flex items-center px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-sm font-medium"
-          >
-            {buttonText} →
-          </a>
-        </div>
-      ))}
-    </div>
-  );
-
-  const renderContent = () => {
-    switch(activeTab) {
-      case 'articles': return renderArticles();
-      case 'tools': return renderTools();
-      case 'books': return renderBooks();
-      case 'free': return renderResources();
-      default: return renderArticles();
+      default:
+        return <div className="p-10 text-center text-gray-600">Page not found.</div>;
     }
   };
 
+  // Navigation items with emojis for better UX
+  const navItems = [
+    ['home', '🏠 Home'],
+    ['what-if', '🚀 What If Machine'],
+    ['debts', '🎯 My Debts'],
+    ['library', '📚 Library'],
+    ['books', '📖 Books'],
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">📚 Library</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Master your money with tools, books, and resources that actually help you become debt-free. 
-            No get-rich-quick schemes, just proven strategies.
-          </p>
-        </div>
-
-        {/* Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
-          {tabs.map(({ id, label, count }) => (
-            <button
-              key={id}
-              onClick={() => setActiveTab(id)}
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                activeTab === id
-                  ? 'bg-blue-600 text-white shadow-sm transform scale-105'
-                  : 'bg-white text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-              }`}
+      {/* Enhanced Navigation */}
+      <nav className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo/Brand */}
+            <button 
+              onClick={() => setCurrentPage('home')}
+              className="flex items-center space-x-2 text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors"
             >
-              {label} ({count})
+              <span>TrySnowball</span>
+              <span className="text-sm text-gray-500 font-normal">Debt Freedom Tool</span>
             </button>
-          ))}
-        </div>
 
-        {/* Content */}
-        <div className="transition-all duration-300">
-          {renderContent()}
-        </div>
+            {/* Navigation Items */}
+            <div className="hidden md:flex space-x-1">
+              {navItems.map(([page, label]) => (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    currentPage === page
+                      ? 'bg-blue-600 text-white shadow-sm transform scale-105'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
 
-        {/* Footer CTA */}
-        <div className="mt-12 text-center p-8 bg-blue-50 rounded-lg">
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">Ready to start your debt-free journey?</h3>
-          <p className="text-gray-600 mb-4">Track your progress with our free debt snowball calculator.</p>
-          <button className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-            🚀 Try the What If Machine
-          </button>
+            {/* Mobile menu button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="text-gray-600 hover:text-gray-900 p-2"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Navigation */}
+          {isMenuOpen && (
+            <div className="md:hidden border-t border-gray-200 py-2">
+              <div className="flex flex-col space-y-1">
+                {navItems.map(([page, label]) => (
+                  <button
+                    key={page}
+                    onClick={() => {
+                      setCurrentPage(page);
+                      setIsMenuOpen(false); // Close menu when clicked
+                    }}
+                    className={`px-4 py-2 text-left rounded-lg text-sm font-medium transition-colors ${
+                      currentPage === page
+                        ? 'bg-blue-600 text-white'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
+      </nav>
+
+      {/* Page Content */}
+      <div className="transition-all duration-300 ease-in-out">
+        {renderPage()}
       </div>
+
+      {/* Footer */}
+      <footer className="bg-white border-t border-gray-200 mt-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="text-center text-gray-500 text-sm">
+            <p>🔒 All your financial data stays private on your device</p>
+            <p className="mt-2">Built to help you become debt-free faster with the snowball method</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
-};
+}
 
-export default Library;
+export default App;
