@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 const SpendAnalyser = ({ onPageChange }) => {
   const [csvData, setCsvData] = useState(null);
   const [analysis, setAnalysis] = useState(null);
-  const [uploading, setUploading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
 
   // Category mapping for spending analysis
@@ -202,26 +201,23 @@ const SpendAnalyser = ({ onPageChange }) => {
   };
 
   const handleFileUpload = (file) => {
-    setUploading(true);
-    const reader = new FileReader();
-    
-    reader.onload = (e) => {
-      try {
-        const csvText = e.target.result;
-        const transactions = parseCSV(csvText);
-        setCsvData(transactions);
-        const analysisResult = analyzeSpending(transactions);
-        setAnalysis(analysisResult);
-      } catch (error) {
-        console.error('Error parsing CSV:', error);
-        alert('Error parsing CSV file. Please check the format.');
-      } finally {
-        setUploading(false);
-      }
-    };
-    
-    reader.readAsText(file);
+  const reader = new FileReader();
+  
+  reader.onload = (e) => {
+    try {
+      const csvText = e.target.result;
+      const transactions = parseCSV(csvText);
+      setCsvData(transactions);
+      const analysisResult = analyzeSpending(transactions);
+      setAnalysis(analysisResult);
+    } catch (error) {
+      console.error('Error parsing CSV:', error);
+      alert('Error parsing CSV file. Please check the format.');
+    }
   };
+  
+  reader.readAsText(file);
+};
 
   const handleDrop = (e) => {
     e.preventDefault();
