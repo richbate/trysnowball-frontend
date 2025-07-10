@@ -4,6 +4,7 @@ import DebtTracker from './pages/MyDebtsPage';
 import WhatIfMachine from './pages/WhatIfMachine';
 import Home from './pages/Home';
 import Library from './pages/Library';
+import SpendAnalyser from './components/SpendAnalyser';
 
 // const user = true;
 const loading = false;
@@ -41,16 +42,12 @@ function App() {
       case 'what-if':
         return <WhatIfMachine onPageChange={setCurrentPage} />;
 
-      //case 'thank-you':
+      case 'analyser':  // ADD THIS CASE
+        return <SpendAnalyser onPageChange={setCurrentPage} />;
+        //case 'thank-you':
         // return <ThankYou />;
 
-      case 'books':
-        return (
-          <div className="min-h-screen bg-gray-50">
-            {/* Your full books section */}
-          </div>
-        );
-
+     
       default:
         return <div className="p-10 text-center text-gray-600">Page not found.</div>;
     }
@@ -59,10 +56,10 @@ function App() {
   // Navigation items with emojis for better UX
   const navItems = [
     ['home', '🏠 Home'],
+    ['analyser', '🔍 Spend Analyser'],
     ['what-if', '🚀 What If Machine'],
     ['debts', '🎯 My Debts'],
     ['library', '📚 Library'],
-    ['books', '📖 Books'],
   ];
 
   return (
