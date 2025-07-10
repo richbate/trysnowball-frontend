@@ -200,24 +200,45 @@ const SpendAnalyser = ({ onPageChange }) => {
     };
   };
 
-  const handleFileUpload = (file) => {
-  const reader = new FileReader();
-  
-  reader.onload = (e) => {
-    try {
-      const csvText = e.target.result;
-      const transactions = parseCSV(csvText);
-      setCsvData(transactions);
-      const analysisResult = analyzeSpending(transactions);
-      setAnalysis(analysisResult);
-    } catch (error) {
-      console.error('Error parsing CSV:', error);
-      alert('Error parsing CSV file. Please check the format.');
-    }
+  const saveSnowballToWhatIf = () => {
+  if (!analysis || analysis.totalPotentialSavings === 0) {
+    alert('No savings analysis available to transfer.');
+    return;
+  }
+
+  const snowballData = {
+    amount: Math.round(analysis.totalPotentialSavings),
+    source: 'spend_analysis',
+    date: new Date().toISOString(),
+    breakdown: analysis.savingsOpportunities.map(opp => ({
+      category: opp.category,
+      potential: Math.round(opp.potential),
+      suggestion: opp.suggestion
+    }))
   };
-  
-  reader.readAsText(file);
+
+  localStorage.setItem('trysnowball-pending-snowball', JSON.stringify(snowballData));
+  onPageChange('what-if');
 };
+
+  const handleFileUpload = (file) => {
+    const reader = new FileReader();
+    
+    reader.onload = (e) => {
+      try {
+        const csvText = e.target.result;
+        const transactions = parseCSV(csvText);
+        setCsvData(transactions);
+        const analysisResult = analyzeSpending(transactions);
+        setAnalysis(analysisResult);
+      } catch (error) {
+        console.error('Error parsing CSV:', error);
+        alert('Error parsing CSV file. Please check the format.');
+      }
+    };
+    
+    reader.readAsText(file);
+  };
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -415,18 +436,18 @@ const SpendAnalyser = ({ onPageChange }) => {
                 🎯 Next Steps to Debt Freedom
               </h3>
               <div className="space-y-3 text-blue-800">
-                <p>1. <strong>Add this {formatCurrency(analysis.totalPotentialSavings)} to your debt tracker</strong> as extra monthly payment</p>
+<p>1. <strong>It might be tough, but you could use this {formatCurrency(analysis.totalPotentialSavings)} as extra monthly payment</strong> toward your existing debts</p>
                 <p>2. <strong>Start with the "Very Easy" changes</strong> - cancel unused subscriptions</p>
                 <p>3. <strong>Track your progress</strong> - upload transactions monthly to verify</p>
                 <p>4. <strong>Celebrate wins</strong> - every pound saved speeds up your debt freedom!</p>
               </div>
               <div className="mt-6 text-center">
                 <button
-                  onClick={() => onPageChange('debts')}
-                  className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  Add to Debt Tracker →
-                </button>
+  onClick={saveSnowballToWhatIf}
+  className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+>
+  Apply £{Math.round(analysis.totalPotentialSavings)} to Debt Snowball →
+</button>
               </div>
             </div>
 
