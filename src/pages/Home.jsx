@@ -48,7 +48,26 @@ const Home = () => {
           </a>
         </div>
       </section>
-
+<section className="mb-16 max-w-4xl mx-auto">
+  <h2 className="text-3xl font-bold mb-6 text-blue-400">Try the AI Coach</h2>
+  <div className="bg-gray-800 rounded-lg p-8 border-l-4 border-blue-500">
+    <p className="text-lg leading-relaxed mb-4">
+      Want a no-fluff plan to kill your debt? The <span className="text-white font-semibold">TrySnowball AI Debt Coach</span> gives you a
+      personalised ChatGPT script, a printable worksheet, and a plan you can load straight into the app.
+    </p>
+    <p className="text-gray-300 mb-6">
+      Designed for real UK life — credit cards, Klarna, overdrafts, and all. It’s tough love in digital form.
+    </p>
+    <a
+      href="https://stan.store/trysnowball/p/personal-ai-debt-coach"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow"
+    >
+      🛒 Get the AI Coach – £2.99
+    </a>
+  </div>
+</section>
      <section id="signup" className="bg-gray-800 rounded-lg shadow-2xl p-8 my-16 max-w-md mx-auto border border-gray-700">
   <h2 className="text-2xl font-bold mb-6 text-center text-white">Be the first to try it</h2>
   <form 

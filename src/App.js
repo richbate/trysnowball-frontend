@@ -10,6 +10,9 @@ const loading = false;
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home'); 
+  console.log('Current page is:', currentPage);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   // const { user, loading } = useAuth();
 
   if (loading) {
@@ -37,6 +40,9 @@ function App() {
 
       case 'what-if':
         return <WhatIfMachine onPageChange={setCurrentPage} />;
+
+      //case 'thank-you':
+        // return <ThankYou />;
 
       case 'books':
         return (
@@ -94,7 +100,7 @@ function App() {
             {/* Mobile menu button */}
             <div className="md:hidden">
               <button
-                onClick={() => {/* Add mobile menu toggle if needed */}}
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="text-gray-600 hover:text-gray-900 p-2"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -104,24 +110,29 @@ function App() {
             </div>
           </div>
 
-          {/* Mobile Navigation - Hidden by default, you can add state to toggle */}
-          <div className="md:hidden border-t border-gray-200 py-2">
-            <div className="flex flex-col space-y-1">
-              {navItems.map(([page, label]) => (
-                <button
-                  key={page}
-                  onClick={() => setCurrentPage(page)}
-                  className={`px-4 py-2 text-left rounded-lg text-sm font-medium transition-colors ${
-                    currentPage === page
-                      ? 'bg-blue-600 text-white'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
+          {/* Mobile Navigation */}
+          {isMenuOpen && (
+            <div className="md:hidden border-t border-gray-200 py-2">
+              <div className="flex flex-col space-y-1">
+                {navItems.map(([page, label]) => (
+                  <button
+                    key={page}
+                    onClick={() => {
+                      setCurrentPage(page);
+                      setIsMenuOpen(false); // Close menu when clicked
+                    }}
+                    className={`px-4 py-2 text-left rounded-lg text-sm font-medium transition-colors ${
+                      currentPage === page
+                        ? 'bg-blue-600 text-white'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </nav>
 
