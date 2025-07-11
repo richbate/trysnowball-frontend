@@ -48,7 +48,7 @@ const Library = () => {
       title: 'The Total Money Makeover', 
       author: 'Dave Ramsey',
       desc: 'The debt snowball method explained step-by-step.',
-      link: 'https://amazon.co.uk',
+      link: 'https://amzn.to/4eRAiJe',
       price: '£12.99',
       badge: 'Classic'
     },
@@ -56,7 +56,7 @@ const Library = () => {
       title: 'Your Money or Your Life', 
       author: 'Vicki Robin',
       desc: 'Transform your relationship with money and achieve financial independence.',
-      link: 'https://amazon.co.uk',
+      link: 'https://amzn.to/4kPX7OV',
       price: '£14.99',
       badge: 'Life-changing'
     },
@@ -64,7 +64,7 @@ const Library = () => {
       title: 'The Richest Man in Babylon', 
       author: 'George S. Clason',
       desc: 'Timeless money wisdom in simple parables.',
-      link: 'https://amazon.co.uk',
+      link: 'https://amzn.to/464HD5U',
       price: '£8.99',
       badge: 'Timeless'
     },
@@ -72,7 +72,7 @@ const Library = () => {
       title: 'I Will Teach You to Be Rich', 
       author: 'Ramit Sethi',
       desc: 'No-guilt, practical approach to money for younger audiences.',
-      link: 'https://amazon.co.uk',
+      link: 'https://amzn.to/45XCcFI',
       price: '£13.99',
       badge: 'Practical'
     },
