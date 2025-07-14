@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Generate realistic random debt data
 const generateRandomDebts = () => {
@@ -37,7 +38,8 @@ const generateRandomDebts = () => {
   });
 };
 
-const DebtTracker = ({ onPageChange }) => {
+const DebtTracker = () => {
+  const navigate = useNavigate();
   const [debts, setDebts] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
   const [extraPayment, setExtraPayment] = useState(0);
@@ -609,7 +611,7 @@ const DebtTracker = ({ onPageChange }) => {
         {/* Navigation */}
         <div className="text-center mt-8">
           <button
-            onClick={() => onPageChange('home')}
+            onClick={() => navigate('/')}
             className="text-blue-600 hover:text-blue-700 transition-colors"
           >
             ← Back to Home

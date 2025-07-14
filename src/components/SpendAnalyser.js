@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const SpendAnalyser = ({ onPageChange }) => {
+const SpendAnalyser = () => {
+  const navigate = useNavigate();
   const [csvData, setCsvData] = useState(null);
   const [analysis, setAnalysis] = useState(null);
   const [dragActive, setDragActive] = useState(false);
@@ -218,7 +220,7 @@ const SpendAnalyser = ({ onPageChange }) => {
   };
 
   localStorage.setItem('trysnowball-pending-snowball', JSON.stringify(snowballData));
-  onPageChange('what-if');
+  navigate('/what-if');
 };
 
   const handleFileUpload = (file) => {
@@ -275,7 +277,7 @@ const SpendAnalyser = ({ onPageChange }) => {
             🔍 AI Spend Analyser
           </h1>
           <p className="text-xl text-gray-600">
-            Upload your bank transactions to discover your magic snowball number
+            Upload your bank transactions to discover how much you could save
           </p>
         </div>
 
@@ -360,7 +362,7 @@ const SpendAnalyser = ({ onPageChange }) => {
           <div className="space-y-8">
             {/* Magic Snowball Number */}
             <div className="bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-lg p-8 text-center">
-              <h2 className="text-3xl font-bold mb-4">✨ Your Magic Snowball Number</h2>
+              <h2 className="text-3xl font-bold mb-4">✨ Potential savings to add to your snowball</h2>
               <div className="text-6xl font-bold mb-4">
                 {formatCurrency(analysis.totalPotentialSavings)}
               </div>
@@ -469,7 +471,7 @@ const SpendAnalyser = ({ onPageChange }) => {
         {/* Navigation */}
         <div className="text-center mt-8">
           <button
-            onClick={() => onPageChange('home')}
+            onClick={() => navigate('/')}
             className="text-blue-600 hover:text-blue-700 transition-colors"
           >
             ← Back to Home

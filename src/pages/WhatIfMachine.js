@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid,
   Tooltip, Legend, ResponsiveContainer
@@ -108,7 +109,8 @@ const calculateExtraPaymentForTarget = (targetMonths, debts, totalMinPayments) =
 };
 
 // Main component
-const WhatIfMachine = ({ onPageChange }) => {
+const WhatIfMachine = () => {
+  const navigate = useNavigate();
   const [extraPayment, setExtraPayment] = useState(100);
   const [showSnowballSuccess, setShowSnowballSuccess] = useState(false);
 
@@ -307,7 +309,7 @@ const WhatIfMachine = ({ onPageChange }) => {
                 <p className="text-xs text-blue-700">Analyze your spending to discover hidden savings</p>
               </div>
               <button
-                onClick={() => onPageChange && onPageChange('analyser')}
+                onClick={() => navigate('/analyser')}
                 className="bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors"
               >
                 Analyze Spending →
@@ -454,7 +456,7 @@ const WhatIfMachine = ({ onPageChange }) => {
         {/* Navigation */}
         <div className="text-center mt-6">
           <button
-            onClick={() => onPageChange && onPageChange('home')}
+            onClick={() => navigate('/')}
             className="text-blue-600 hover:text-blue-700 transition-colors"
           >
             ← Back to Home
