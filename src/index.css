@@ -98,6 +98,6 @@
   
   /* Override specific gradient backgrounds */
   .dark .bg-gradient-to-br.from-blue-50.to-indigo-100 {
-    @apply !bg-gradient-to-br !from-gray-900 !to-gray-800;
+    background: linear-gradient(to bottom right, rgb(17 24 39), rgb(31 41 55)) !important;
   }
 }
