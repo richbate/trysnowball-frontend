@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { ThemeProvider, useTheme } from './contexts/ThemeContext';
+import { UserFlowProvider } from './contexts/UserFlowContext';
 import ThemeToggle from './components/ThemeToggle';
+import AccountPrompt from './components/AccountPrompt';
 import DebtTracker from './pages/MyDebtsPage';
 //import Auth, { useAuth } from './components/auth';
 import WhatIfMachine from './pages/WhatIfMachine';
@@ -124,6 +126,9 @@ function Navigation() {
         </Routes>
       </div>
 
+      {/* Account Prompt */}
+      <AccountPrompt />
+
       {/* Footer */}
       <footer className={`${colors.surface} ${colors.border} border-t mt-16`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -140,9 +145,11 @@ function Navigation() {
 function App() {
   return (
     <ThemeProvider>
-      <Router>
-        <Navigation />
-      </Router>
+      <UserFlowProvider>
+        <Router>
+          <Navigation />
+        </Router>
+      </UserFlowProvider>
     </ThemeProvider>
   );
 }

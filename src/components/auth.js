@@ -1,8 +1,10 @@
-/** import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { useTheme } from '../contexts/ThemeContext';
 console.log('🧪 Supabase inside auth.js:', supabase);
 
 const Auth = ({ onAuthSuccess }) => {
+  const { colors } = useTheme();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -62,23 +64,23 @@ const Auth = ({ onAuthSuccess }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className={`min-h-screen ${colors.background} flex flex-col justify-center py-12 sm:px-6 lg:px-8`}>
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900">
+          <h2 className={`text-3xl font-bold ${colors.text.primary}`}>
             🎯 TrySnowball
           </h2>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className={`mt-2 text-sm ${colors.text.secondary}`}>
             {isSignUp ? 'Create your account' : 'Sign in to your account'}
           </p>
         </div>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className={`${colors.surface} py-8 px-4 shadow sm:rounded-lg sm:px-10`}>
           <form className="space-y-6" onSubmit={handleAuth}>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="email" className={`block text-sm font-medium ${colors.text.primary}`}>
                 Email address
               </label>
               <div className="mt-1">

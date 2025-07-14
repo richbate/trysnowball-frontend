@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUserFlow } from '../contexts/UserFlowContext';
 
 const SpendAnalyser = () => {
   const navigate = useNavigate();
+  const { trackDemoInteraction } = useUserFlow();
   const [csvData, setCsvData] = useState(null);
   const [analysis, setAnalysis] = useState(null);
   const [dragActive, setDragActive] = useState(false);
@@ -86,6 +88,7 @@ const SpendAnalyser = () => {
     const analysisResult = analyzeSpending(demoTransactions);
     setAnalysis(analysisResult);
     setIsUsingDemoData(true);
+    trackDemoInteraction(); // Track demo usage
   };
 
   const categorizeTransaction = (description) => {

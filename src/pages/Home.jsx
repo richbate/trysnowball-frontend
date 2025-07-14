@@ -1,19 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
+import { useUserFlow } from '../contexts/UserFlowContext';
+import Auth from '../components/auth';
 
 const Home = () => {
   const navigate = useNavigate();
   const { colors } = useTheme();
+  const { startDemo, migrateDataToAccount } = useUserFlow();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
+  const handleTryDemo = () => {
+    startDemo();
+    navigate('/debts');
+  };
+
+  const handleAuthSuccess = async (userData) => {
+    await migrateDataToAccount(userData);
+    setShowAuthModal(false);
+    navigate('/debts');
+  };
   return (
     <div className={`min-h-screen ${colors.background} ${colors.text.primary} px-6 py-12`}>
       <header className="text-center mb-16">
         <h1 className="text-5xl font-bold text-blue-500 mb-4">TrySnowball</h1>
         <p className={`text-xl mb-2 ${colors.text.secondary}`}>Debt is stealing your future.</p>
         <p className={`text-2xl font-bold ${colors.text.primary} mb-6`}>Take it back.</p>
-        <a href="#signup" className="inline-block mt-4 px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg">
-          Join the waitlist
-        </a>
+        <div className="space-y-3 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center">
+          <button
+            onClick={handleTryDemo}
+            className="w-full sm:w-auto bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg"
+          >
+            Try Demo (No Account)
+          </button>
+          <button
+            onClick={() => setShowAuthModal(true)}
+            className="w-full sm:w-auto bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors shadow-lg"
+          >
+            Create Account
+          </button>
+        </div>
       </header>
 
       <section className="mb-16 max-w-4xl mx-auto">
@@ -108,35 +134,22 @@ const Home = () => {
         </div>
       </section>
 
-      <section id="signup" className={`${colors.surface} rounded-lg shadow-2xl p-8 my-16 max-w-md mx-auto ${colors.border} border`}>
-        <h2 className={`text-2xl font-bold mb-6 text-center ${colors.text.primary}`}>Be the first to try it</h2>
-        <form 
-          name="signup" 
-          method="POST" 
-          data-netlify="true" 
-          data-netlify-honeypot="bot-field"
-          action="/#signup"
-        >
-          <input type="hidden" name="form-name" value="signup" />
-          <p style={{display: 'none'}}>
-            <input name="bot-field" />
-          </p>
-          
-          <input
-            type="email"
-            name="email"
-            placeholder="Your email"
-            required
-            className={`w-full p-3 ${colors.border} border rounded-lg mb-4 ${colors.surfaceSecondary} ${colors.text.primary} placeholder-gray-400 focus:border-blue-500 focus:outline-none`}
-          />
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
-          >
-            Join the waitlist
-          </button>
-        </form>
-      </section>
+      {/* Auth Modal */}
+      {showAuthModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div className="relative">
+              <button
+                onClick={() => setShowAuthModal(false)}
+                className="absolute -top-2 -right-2 z-10 bg-gray-600 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-700 transition-colors"
+              >
+                ×
+              </button>
+              <Auth onAuthSuccess={handleAuthSuccess} />
+            </div>
+          </div>
+        </div>
+      )}
 
       <footer className={`text-center mt-16 text-sm ${colors.text.muted}`}>
         <p>© {new Date().getFullYear()} TrySnowball. Built in the UK.</p>

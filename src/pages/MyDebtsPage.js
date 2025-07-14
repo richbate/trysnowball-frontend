@@ -517,6 +517,29 @@ const DebtTracker = () => {
                 <span className="text-gray-600">Number of Debts:</span>
                 <span className="font-semibold">{debts.length}</span>
               </div>
+              {/* Credit Utilization */}
+              {(() => {
+                const debtsWithLimits = debts.filter(debt => debt.limit && debt.limit > 0);
+                if (debtsWithLimits.length > 0) {
+                  const totalDebtWithLimits = debtsWithLimits.reduce((sum, debt) => sum + debt.amount, 0);
+                  const totalLimits = debtsWithLimits.reduce((sum, debt) => sum + debt.limit, 0);
+                  const utilizationPercent = totalLimits > 0 ? (totalDebtWithLimits / totalLimits) * 100 : 0;
+                  
+                  return (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Credit Utilization:</span>
+                      <span className={`font-semibold ${
+                        utilizationPercent < 30 ? 'text-green-600' : 
+                        utilizationPercent < 75 ? 'text-yellow-600' : 
+                        'text-red-600'
+                      }`}>
+                        {utilizationPercent.toFixed(1)}%
+                      </span>
+                    </div>
+                  );
+                }
+                return null;
+              })()}
             </div>
           </div>
 
