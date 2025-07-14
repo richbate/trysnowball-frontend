@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDataManager } from '../hooks/useDataManager';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid,
   Tooltip, Legend, ResponsiveContainer
@@ -39,8 +40,6 @@ const generateRandomDebts = () => {
   });
 };
 
-// Generate random debt data on each page load
-const initialDebts = generateRandomDebts();
 
 // Format currency
 const formatCurrency = (value) => {
@@ -111,11 +110,21 @@ const calculateExtraPaymentForTarget = (targetMonths, debts, totalMinPayments) =
 // Main component
 const WhatIfMachine = () => {
   const navigate = useNavigate();
+  const { debts: rawDebts, totalDebt, totalMinPayments } = useDataManager();
   const [extraPayment, setExtraPayment] = useState(100);
   const [showSnowballSuccess, setShowSnowballSuccess] = useState(false);
 
-  const totalMinPayments = initialDebts.reduce((sum, debt) => sum + debt.minPayment, 0);
-  const totalDebt = initialDebts.reduce((sum, debt) => sum + debt.balance, 0);
+  // Transform debt data to match What If Machine format (balance, rate, minPayment)
+  // If no real debts exist, use demo data for testing
+  const debts = rawDebts.length > 0 ? rawDebts.map(debt => ({
+    id: debt.id,
+    name: debt.name,
+    balance: debt.amount,
+    rate: debt.interest,
+    minPayment: debt.regularPayment,
+    isDemo: debt.isDemo || false
+  })) : generateRandomDebts().map(debt => ({ ...debt, isDemo: true }));
+
 
   // Check for pending snowball data from spend analyser
   useEffect(() => {
@@ -145,7 +154,7 @@ const WhatIfMachine = () => {
     // Do Nothing (interest only)
     const doNothingData = [];
     for (let month = 0; month <= 60; month++) {
-      const total = initialDebts.reduce((acc, debt) => {
+      const total = debts.reduce((acc, debt) => {
         const monthlyRate = debt.rate / 12 / 100;
         const futureBalance = debt.balance * Math.pow(1 + monthlyRate, month);
         return acc + futureBalance;
@@ -155,7 +164,7 @@ const WhatIfMachine = () => {
     scenarioResults.doNothing = doNothingData;
 
     // Minimum Payments
-    const minDebts = JSON.parse(JSON.stringify(initialDebts));
+    const minDebts = JSON.parse(JSON.stringify(debts));
     const minimumOnlyData = [];
     let totalMinInterest = 0;
 
@@ -177,7 +186,7 @@ const WhatIfMachine = () => {
     scenarioResults.minimumOnly = minimumOnlyData;
 
     // Snowball Method
-    const snowballDebts = JSON.parse(JSON.stringify(initialDebts)).sort((a, b) => a.balance - b.balance);
+    const snowballDebts = JSON.parse(JSON.stringify(debts)).sort((a, b) => a.balance - b.balance);
     const snowballData = [];
     let totalSnowballInterest = 0;
 
@@ -213,7 +222,7 @@ const WhatIfMachine = () => {
     scenarioResults.snowball = snowballData;
 
     return scenarioResults;
-  }, [extraPayment, totalMinPayments]);
+  }, [debts, extraPayment, totalMinPayments]);
 
   const chartData = [];
   for (let i = 0; i < 61; i++) {
@@ -323,12 +332,12 @@ const WhatIfMachine = () => {
             <button 
               onClick={() => {
                 const targetMonths = Math.floor(snowballPayoffMonths / 2);
-                const requiredExtra = calculateExtraPaymentForTarget(targetMonths, initialDebts, totalMinPayments);
+                const requiredExtra = calculateExtraPaymentForTarget(targetMonths, debts, totalMinPayments);
                 setExtraPayment(requiredExtra);
               }}
               className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors"
             >
-              🚀 Cut debt time in half! (Need {formatCurrency(calculateExtraPaymentForTarget(Math.floor(snowballPayoffMonths / 2), initialDebts, totalMinPayments))}/month extra)
+              🚀 Cut debt time in half! (Need {formatCurrency(calculateExtraPaymentForTarget(Math.floor(snowballPayoffMonths / 2), debts, totalMinPayments))}/month extra)
             </button>
           </div>
         )}
