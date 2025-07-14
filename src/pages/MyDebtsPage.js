@@ -576,9 +576,30 @@ const DebtTracker = () => {
     };
     
     const getProjectedPayment = (debt) => {
-      const projectedMonth = projections?.months?.find(m => m.monthKey === currentMonthKey);
+      // If debt is paid off (balance is 0), check if it was paid off this month
+      if (debt.amount <= 0) {
+        const currentMonthPayment = getPaymentForDebt(debt.id);
+        // If there's a payment recorded for this month, use that as the "projected" amount
+        // since it represents what was needed to pay off the debt
+        if (currentMonthPayment) {
+          return currentMonthPayment.amount;
+        }
+        return 0;
+      }
+      
+      // Use the first month of projections as the baseline for current month
+      const projectedMonth = projections?.months?.[0];
       const projectedDebt = projectedMonth?.debts?.[debt.id];
-      return projectedDebt?.payment || (debt.regularPayment + (extraPayment / debts.length));
+      
+      // If we have projection data for this debt, use it
+      if (projectedDebt) {
+        return projectedDebt.payment;
+      }
+      
+      // Fallback: distribute extra payment evenly among debts with balance > 0
+      const activeDebts = debts.filter(d => d.amount > 0);
+      const extraPerDebt = activeDebts.length > 0 ? extraPayment / activeDebts.length : 0;
+      return debt.regularPayment + extraPerDebt;
     };
     
     return (
@@ -589,6 +610,13 @@ const DebtTracker = () => {
             <div className="text-sm text-gray-600">
               Total Recorded: £{monthlyPayments.reduce((sum, p) => sum + p.amount, 0).toLocaleString()}
             </div>
+          </div>
+          
+          <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+            <p className="text-sm text-blue-800">
+              <strong>Note:</strong> "Vs Projected" compares your actual payment to what was projected for this month. 
+              For paid-off debts, it shows the difference between what you actually paid and what was needed to pay them off.
+            </p>
           </div>
           
           {debts.length === 0 ? (
@@ -610,7 +638,7 @@ const DebtTracker = () => {
                       Actual Payment
                     </th>
                     <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Difference
+                      Vs Projected (This Month)
                     </th>
                     <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Actions
@@ -771,13 +799,18 @@ const DebtTracker = () => {
   const renderProgressTab = () => {
     const paymentHistory = getPaymentHistory();
     const totalActualPayments = paymentHistory.reduce((sum, p) => sum + p.amount, 0);
-    const totalProjectedPayments = projections?.months?.slice(0, 3).reduce((sum, month) => {
-      return sum + Object.values(month.debts).reduce((monthSum, debt) => monthSum + debt.payment, 0);
-    }, 0) || 0;
+    // Get current month's payments and projections for comparison
+    const currentMonthKey = getCurrentMonth();
+    const currentMonthPayments = getPaymentHistory(currentMonthKey);
+    const currentMonthActualPayments = currentMonthPayments.reduce((sum, p) => sum + p.amount, 0);
+    const currentMonthProjection = projections?.months?.find(month => month.monthKey === currentMonthKey);
+    const totalProjectedPayments = currentMonthProjection ? 
+      Object.values(currentMonthProjection.debts).reduce((sum, debt) => sum + debt.payment, 0) : 0;
     
     const currentBalance = debts.reduce((sum, debt) => sum + debt.amount, 0);
-    const originalBalance = totalDebt; // Assuming this is the original balance
-    const progressPercentage = Math.max(0, Math.min(100, ((originalBalance - currentBalance) / originalBalance) * 100));
+    const totalPaymentsMade = paymentHistory.reduce((sum, p) => sum + p.amount, 0);
+    const originalBalance = debts.reduce((sum, debt) => sum + (debt.originalAmount || debt.amount), 0);
+    const progressPercentage = originalBalance > 0 ? Math.max(0, Math.min(100, (totalPaymentsMade / originalBalance) * 100)) : 0;
     
     const monthsWithPayments = paymentHistory.length > 0 ? 
       [...new Set(paymentHistory.map(p => p.month))].length : 0;
@@ -835,14 +868,14 @@ const DebtTracker = () => {
               </div>
             </div>
             <div className="bg-green-50 rounded-lg p-4">
-              <h5 className="font-medium text-green-900 mb-2">Vs Projected</h5>
+              <h5 className="font-medium text-green-900 mb-2">Vs Projected (This Month)</h5>
               <div className={`text-2xl font-bold ${
-                totalActualPayments >= totalProjectedPayments ? 'text-green-600' : 'text-red-600'
+                currentMonthActualPayments >= totalProjectedPayments ? 'text-green-600' : 'text-red-600'
               }`}>
-                {totalActualPayments >= totalProjectedPayments ? '+' : ''}£{(totalActualPayments - totalProjectedPayments).toLocaleString()}
+                {currentMonthActualPayments >= totalProjectedPayments ? '+' : ''}£{(currentMonthActualPayments - totalProjectedPayments).toLocaleString()}
               </div>
               <div className="text-sm text-green-700 mt-1">
-                {totalActualPayments >= totalProjectedPayments ? 'Ahead of schedule!' : 'Behind schedule'}
+                {currentMonthActualPayments >= totalProjectedPayments ? 'Ahead of schedule!' : 'Behind schedule'}
               </div>
             </div>
           </div>
@@ -855,7 +888,7 @@ const DebtTracker = () => {
             {debts.map((debt, index) => {
               const debtPayments = paymentHistory.filter(p => p.debtId === debt.id);
               const totalPaid = debtPayments.reduce((sum, p) => sum + p.amount, 0);
-              const originalAmount = debt.amount + totalPaid; // Approximate original amount
+              const originalAmount = debt.originalAmount || debt.amount; // Use stored original amount
               const progressPercent = originalAmount > 0 ? ((totalPaid / originalAmount) * 100) : 0;
               
               return (

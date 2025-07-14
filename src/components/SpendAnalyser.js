@@ -6,6 +6,7 @@ const SpendAnalyser = () => {
   const [csvData, setCsvData] = useState(null);
   const [analysis, setAnalysis] = useState(null);
   const [dragActive, setDragActive] = useState(false);
+  const [isUsingDemoData, setIsUsingDemoData] = useState(false);
 
   // Category mapping for spending analysis
   const categoryKeywords = {
@@ -84,6 +85,7 @@ const SpendAnalyser = () => {
     setCsvData(demoTransactions);
     const analysisResult = analyzeSpending(demoTransactions);
     setAnalysis(analysisResult);
+    setIsUsingDemoData(true);
   };
 
   const categorizeTransaction = (description) => {
@@ -233,6 +235,7 @@ const SpendAnalyser = () => {
         setCsvData(transactions);
         const analysisResult = analyzeSpending(transactions);
         setAnalysis(analysisResult);
+        setIsUsingDemoData(false);
       } catch (error) {
         console.error('Error parsing CSV:', error);
         alert('Error parsing CSV file. Please check the format.');
@@ -453,8 +456,39 @@ const SpendAnalyser = () => {
               </div>
             </div>
 
-            {/* Reset Button */}
-            <div className="text-center">
+            {/* Action Buttons */}
+            <div className="text-center space-y-4">
+              {/* Demo Data Call-to-Action */}
+              {analysis && analysis.totalPotentialSavings > 0 && isUsingDemoData && (
+                <div className="bg-yellow-50 rounded-lg p-6 border border-yellow-200">
+                  <h3 className="text-lg font-semibold text-yellow-900 mb-2">
+                    📊 This is just demo data!
+                  </h3>
+                  <p className="text-yellow-800 mb-4">
+                    You found £{Math.round(analysis.totalPotentialSavings)} in potential savings with demo data. 
+                    <strong> What could YOUR real transactions reveal?</strong>
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <button
+                      onClick={() => {
+                        setCsvData(null);
+                        setAnalysis(null);
+                        setIsUsingDemoData(false);
+                      }}
+                      className="bg-yellow-600 text-white px-6 py-3 rounded-lg hover:bg-yellow-700 transition-colors font-medium"
+                    >
+                      📤 Upload Your Real Data
+                    </button>
+                    <button
+                      onClick={() => navigate('/debts')}
+                      className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                    >
+                      🎯 Setup Your Real Debts
+                    </button>
+                  </div>
+                </div>
+              )}
+              
               <button
                 onClick={() => {
                   setCsvData(null);

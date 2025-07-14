@@ -28,12 +28,12 @@ function Navigation() {
   //  return <Auth onAuthSuccess={() => {}} />;
   //}
 
-  // Navigation items with emojis for better UX
+  // Navigation items with emojis for better UX - ordered by logical user flow
   const navItems = [
     ['/', '🏠 Home'],
+    ['/debts', '🎯 My Debts'],
     ['/analyser', '🔍 Spend Analyser'],
     ['/what-if', '🚀 What If Machine'],
-    ['/debts', '🎯 My Debts'],
     ['/library', '📚 Library'],
   ];
 

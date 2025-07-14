@@ -90,6 +90,7 @@ class DataManager {
       debts.push({
         ...debt,
         id: debt.id || Date.now().toString(),
+        originalAmount: debt.amount, // Store original amount for progress tracking
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       });
@@ -117,6 +118,7 @@ class DataManager {
     this.data.debts = debts.map(debt => ({
       ...debt,
       id: debt.id || Date.now().toString() + Math.random().toString(36).substr(2, 9),
+      originalAmount: debt.originalAmount || debt.amount, // Store original amount for progress tracking
       createdAt: debt.createdAt || new Date().toISOString(),
       updatedAt: new Date().toISOString()
     }));
@@ -147,10 +149,22 @@ class DataManager {
       recordedAt: new Date().toISOString()
     };
 
+    // Calculate the difference if this is updating an existing payment
+    let paymentDifference = paymentRecord.amount;
     if (existingIndex >= 0) {
+      paymentDifference = paymentRecord.amount - payments[existingIndex].amount;
       payments[existingIndex] = paymentRecord;
     } else {
       payments.push(paymentRecord);
+    }
+
+    // Update the debt balance to reflect the payment
+    const debt = this.data.debts.find(d => d.id === payment.debtId);
+    
+    if (debt) {
+      // Reduce the debt balance by the payment amount (or difference if updating)
+      debt.amount = Math.max(0, debt.amount - paymentDifference);
+      debt.updatedAt = new Date().toISOString();
     }
 
     this.data.paymentHistory = payments;

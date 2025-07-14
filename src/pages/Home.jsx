@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const Home = ({ onPageChange }) => {
+const Home = () => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white px-6 py-12">
       <header className="text-center mb-16">
@@ -43,13 +45,13 @@ const Home = ({ onPageChange }) => {
           </p>
           <div className="space-y-3 sm:space-y-0 sm:space-x-4 sm:flex">
             <button
-              onClick={() => onPageChange('analyser')}
+              onClick={() => navigate('/analyser')}
               className="w-full sm:w-auto bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors shadow"
             >
               Analyse My Spending
             </button>
             <button
-              onClick={() => onPageChange('analyser')}
+              onClick={() => navigate('/analyser')}
               className="w-full sm:w-auto bg-gray-700 text-gray-300 px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
             >
               Try Demo Data
@@ -75,7 +77,7 @@ const Home = ({ onPageChange }) => {
             <span className="text-white font-medium"> "when will I be free?"</span>
           </p>
           <button 
-            onClick={() => onPageChange('what-if')}
+            onClick={() => navigate('/what-if')}
             className="text-blue-400 hover:text-blue-300 font-semibold text-lg"
           >
             See your way out →
