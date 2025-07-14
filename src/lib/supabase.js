@@ -5,7 +5,9 @@ const supabaseKey = process.env.REACT_APP_SUPABASE_KEY || 'eyJhbGciOiJIUzI1NiIsI
 
 console.log('🔧 Supabase Config:', { 
   url: supabaseUrl ? '✅ Set' : '❌ Missing', 
-  key: supabaseKey ? '✅ Set' : '❌ Missing' 
+  key: supabaseKey ? '✅ Set' : '❌ Missing',
+  note: 'Supabase project may be paused - auth features disabled'
 });
 
+// Create client but handle paused project gracefully
 export const supabase = createClient(supabaseUrl, supabaseKey);
