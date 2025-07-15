@@ -65,11 +65,54 @@ const Home = () => {
           <p className="text-lg leading-relaxed mb-4 font-semibold">
             Pay off debt faster, with less guesswork.
           </p>
-          <p className="text-lg leading-relaxed mb-4">
+          <p className="text-lg leading-relaxed mb-6">
             TrySnowball helps you see your debt clearly, change your habits, and find hidden money to throw at it.
           </p>
+          
+          <div className={`${colors.surfaceSecondary} rounded-lg p-6 mb-6 ${colors.border} border`}>
+            <h3 className={`text-xl font-bold mb-4 ${colors.text.primary}`}>The Debt Snowball Method (hat tip to Dave Ramsey)</h3>
+            <div className="space-y-4">
+              <div className="flex items-start space-x-3">
+                <div className="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">1</div>
+                <div>
+                  <p className="font-semibold mb-1">List your debts, smallest to largest</p>
+                  <p className="text-sm text-gray-600">Ignore interest rates — focus on balance amounts only</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3">
+                <div className="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">2</div>
+                <div>
+                  <p className="font-semibold mb-1">Pay minimums on everything</p>
+                  <p className="text-sm text-gray-600">Keep all accounts current and in good standing</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3">
+                <div className="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">3</div>
+                <div>
+                  <p className="font-semibold mb-1">Attack the smallest debt with everything extra</p>
+                  <p className="text-sm text-gray-600">Every spare pound goes to the smallest balance</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3">
+                <div className="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">4</div>
+                <div>
+                  <p className="font-semibold mb-1">Roll payments forward</p>
+                  <p className="text-sm text-gray-600">When one's paid off, add that payment to the next smallest debt</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3">
+                <div className="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">5</div>
+                <div>
+                  <p className="font-semibold mb-1">Repeat until debt-free</p>
+                  <p className="text-sm text-gray-600">The snowball gets bigger with each debt you eliminate</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
           <p className={`${colors.text.secondary} text-lg`}>
-            It's built on the proven snowball method:
+            <strong className={colors.text.primary}>Why it works:</strong> Quick wins build momentum. 
+            Psychology beats mathematics when it comes to changing behavior.
             <br />
             <strong className={colors.text.primary}>Start small, build momentum, get free.</strong>
           </p>
