@@ -140,14 +140,22 @@ const Home = () => {
           <p className={`${colors.text.secondary} mb-6`}>
             Designed for real UK life — credit cards, Klarna, overdrafts, and all. It's tough love in digital form.
           </p>
-          <a
-            href="https://stan.store/trysnowball/p/personal-ai-debt-coach"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-accent transition-colors shadow"
-          >
-            🛒 Get the AI Coach – £2.99
-          </a>
+          <div className="space-y-3 sm:space-y-0 sm:space-x-4 sm:flex">
+            <button
+              onClick={() => navigate('/ai-coach')}
+              className="w-full sm:w-auto bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-accent transition-colors shadow"
+            >
+              Learn More About AI Coach
+            </button>
+            <a
+              href="https://stan.store/trysnowball/p/personal-ai-debt-coach"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto inline-block px-6 py-3 bg-transparent border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-white transition-colors shadow text-center"
+            >
+              🛒 Get the AI Coach – £2.99
+            </a>
+          </div>
         </div>
       </section>
 
@@ -214,7 +222,33 @@ const Home = () => {
       </section>
 
       <footer className={`text-center mt-16 text-sm ${colors.text.muted}`}>
-        <p>© {new Date().getFullYear()} TrySnowball. Built in the UK.</p>
+        <div className="space-y-4">
+          <div className="flex flex-wrap justify-center gap-6">
+            <button onClick={() => navigate('/library')} className="hover:text-primary transition-colors">
+              Library
+            </button>
+            <button onClick={() => navigate('/ai-coach')} className="hover:text-primary transition-colors">
+              AI Coach
+            </button>
+            <a 
+              href="https://trysnowball.substack.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-primary transition-colors"
+            >
+              Newsletter
+            </a>
+            <button onClick={() => navigate('/analyser')} className="hover:text-primary transition-colors">
+              Spend Analyser
+            </button>
+          </div>
+          <div className="border-t border-gray-200 pt-4">
+            <p>© {new Date().getFullYear()} TrySnowball. Built in the UK.</p>
+            <p className="text-xs mt-2">
+              Free debt management tools. Your data stays private. Built for UK financial situations.
+            </p>
+          </div>
+        </div>
       </footer>
     </div>
   );

@@ -162,75 +162,6 @@ const DebtTracker = () => {
   const hasOnlyDemoData = debts.length > 0 && debts.every(debt => debt.isDemo);
 
   // ChatGPT Export Functions
-  const categorizeDebtType = (debtName) => {
-    const name = debtName.toLowerCase();
-    if (name.includes('credit card') || name.includes('cc') || name.includes('visa') || name.includes('mastercard') || name.includes('barclaycard') || name.includes('halifax') || name.includes('mbna') || name.includes('virgin') || name.includes('tesco')) {
-      return 'Credit Card';
-    } else if (name.includes('car') || name.includes('auto') || name.includes('vehicle')) {
-      return 'Auto Loan';
-    } else if (name.includes('student') || name.includes('education')) {
-      return 'Student Loan';
-    } else if (name.includes('mortgage') || name.includes('home') || name.includes('house')) {
-      return 'Mortgage';
-    } else if (name.includes('personal') || name.includes('loan')) {
-      return 'Personal Loan';
-    } else if (name.includes('overdraft') || name.includes('od')) {
-      return 'Overdraft';
-    } else if (name.includes('klarna') || name.includes('clearpay') || name.includes('laybuy') || name.includes('paypal')) {
-      return 'Buy Now Pay Later';
-    } else {
-      return 'Other';
-    }
-  };
-
-  const calculateDebtFreeDate = () => {
-    if (!hasProjections || !projections.totalMonths) return null;
-    const today = new Date();
-    const futureDate = new Date(today.getFullYear(), today.getMonth() + projections.totalMonths, today.getDate());
-    return futureDate.toISOString().split('T')[0];
-  };
-
-  const downloadForChatGPT = () => {
-    if (debts.length === 0) {
-      alert('Please add your debts first before downloading.');
-      return;
-    }
-
-    const chatGPTData = {
-      generated_date: new Date().toISOString().split('T')[0],
-      total_debt: totalDebt,
-      total_minimum_payments: totalMinPayments,
-      number_of_debts: debts.length,
-      debts: debts.map(debt => ({
-        name: debt.name,
-        balance: debt.amount,
-        interest_rate: debt.interest,
-        minimum_payment: debt.regularPayment,
-        debt_type: categorizeDebtType(debt.name)
-      })),
-      snowball_order: [...debts].sort((a, b) => a.amount - b.amount).map((debt, index) => ({
-        order: index + 1,
-        name: debt.name,
-        balance: debt.amount
-      })),
-      financial_summary: {
-        estimated_payoff_months: projections?.totalMonths || 0,
-        estimated_payoff_years: Math.floor((projections?.totalMonths || 0) / 12),
-        current_extra_payment: extraPayment,
-        debt_free_date: calculateDebtFreeDate()
-      }
-    };
-
-    const dataStr = JSON.stringify(chatGPTData, null, 2);
-    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-    
-    const exportFileDefaultName = `trysnowball-debts-${new Date().toISOString().split('T')[0]}.json`;
-    
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', exportFileDefaultName);
-    linkElement.click();
-  };
 
   const downloadWorksheet = () => {
     if (debts.length === 0) {
@@ -643,36 +574,6 @@ const DebtTracker = () => {
         </div>
       )}
 
-      {/* ChatGPT Export Section */}
-      {debts.length > 0 && !hasOnlyDemoData && (
-        <div className="bg-purple-50 rounded-lg p-6 border border-purple-200">
-          <h3 className="text-lg font-semibold text-purple-900 mb-4">
-            🤖 Export for ChatGPT AI Coach
-          </h3>
-          <p className="text-sm text-purple-800 mb-4">
-            Downloaded our AI Debt Coach? Export your debt data to use with your personalized ChatGPT script.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <button
-              onClick={downloadForChatGPT}
-              className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors font-medium"
-            >
-              📥 Download Debt Data for ChatGPT
-            </button>
-            <a
-              href="https://stan.store/trysnowball/p/personal-ai-debt-coach"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white border border-purple-300 text-purple-700 px-6 py-3 rounded-lg hover:bg-purple-50 transition-colors font-medium text-center"
-            >
-              🛒 Get AI Debt Coach - £2.99
-            </a>
-          </div>
-          <div className="mt-4 text-xs text-purple-600 bg-purple-100 rounded p-3">
-            <p><strong>What you'll get:</strong> A structured JSON file with your debt information, payoff timeline, and snowball order - perfectly formatted for the ChatGPT AI Coach script.</p>
-          </div>
-        </div>
-      )}
 
       {/* Summary & Snowball */}
       {debts.length > 0 && (

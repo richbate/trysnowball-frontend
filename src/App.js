@@ -10,6 +10,7 @@ import WhatIfMachine from './pages/WhatIfMachine';
 import Home from './pages/Home';
 import Library from './pages/Library';
 import SpendAnalyser from './components/SpendAnalyser';
+import AICoach from './pages/AICoach';
 
 // const user = true;
 const loading = false;
@@ -39,6 +40,7 @@ function Navigation() {
     ['/debts', 'My Debts'],
     ['/analyser', 'Spend Analyser'],
     ['/what-if', 'What If Machine'],
+    ['/ai-coach', 'AI Coach'],
     ['/library', 'Library'],
   ];
 
@@ -126,6 +128,7 @@ function Navigation() {
           <Route path="/analyser" element={<SpendAnalyser />} />
           <Route path="/what-if" element={<WhatIfMachine />} />
           <Route path="/debts" element={<DebtTracker />} />
+          <Route path="/ai-coach" element={<AICoach />} />
           <Route path="/library" element={<Library />} />
         </Routes>
       </div>

@@ -278,6 +278,22 @@ Stay focused. Keep going. Your future self is cheering you on.`
       link: 'https://amzn.to/45XCcFI',
       price: '£13.99',
       badge: 'Modern'
+    },
+    { 
+      title: 'Rich Dad Poor Dad', 
+      author: 'Robert Kiyosaki',
+      desc: 'A paradigm-shifting book about money, wealth, and the mindset difference between the rich and poor.',
+      link: 'https://amzn.to/4nN4TLQ',
+      price: '£9.99',
+      badge: 'Bestseller'
+    },
+    { 
+      title: 'Debt: The First 5000 Years', 
+      author: 'David Graeber',
+      desc: 'A groundbreaking exploration of debt throughout human history and its impact on society.',
+      link: 'https://amzn.to/4532m8W',
+      price: '£12.99',
+      badge: 'Academic'
     }
   ];
 
