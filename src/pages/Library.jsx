@@ -547,11 +547,10 @@ Stay focused. Keep going. Your future self is cheering you on.`
         <div className="max-w-6xl mx-auto px-4 py-12">
           <div className="text-center">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              UK Debt Snowball Method: Research-Backed Debt Elimination
+              Pay Off Debt, One Step at a Time.
             </h1>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto mb-6">
-              With 8.1 million UK adults needing debt advice and household debt averaging £65,529, 
-              discover the scientifically proven debt snowball method that helped millions achieve debt freedom.
+              Try the debt snowball method — simple, proven, and made for real life.
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-600">
               <span>✅ Backed by Northwestern University research</span>
