@@ -61,6 +61,80 @@ const Library = () => {
 
   const articles = [
     { 
+      tag: 'Spending Habits', 
+      title: 'Summer Sales, Spending Habits, and Things You Don\'t Really Need', 
+      desc: 'Why "I saved 40%!" actually means "you spent 60%." Understanding the psychology of sales and impulse buying.',
+      readTime: '6 min',
+      keywords: 'summer sales, spending habits, impulse buying, retail therapy, debt freedom',
+      externalLink: 'https://www.moneyhelper.org.uk/en/everyday-money/shopping/how-to-stop-impulse-buying',
+      content: `**"I saved 40%!
+
+No… you spent 60%.**
+
+⸻
+
+🎯 The Summer Sale Trap
+
+Retailers know exactly what they're doing.
+Every July, like clockwork, we're bombarded with "Final Reductions", "End of Season", "Summer Clearance".
+Bright banners, countdown timers, words like SAVE and LIMITED TIME.
+
+They're not just selling you products.
+They're selling you urgency.
+They're selling you the idea that spending money is saving money.
+
+⸻
+
+🛍 Why We Buy Things We Don't Need
+    •    Emotional Shopping: Feeling tired, overwhelmed, stressed, bored? Retail therapy feels good — temporarily.
+    •    Scarcity Triggers: "Only 3 left in stock!" makes you panic-buy, not think.
+    •    Comparison Pressure: Everyone's got new garden furniture / trainers / tech. Why shouldn't you?
+    •    Discount FOMO: You weren't even looking for it… but now it's 50% off? Surely that's sensible spending…
+
+⸻
+
+💸 The Financial Reality Check
+
+If you didn't need it yesterday, you don't need it because it's on sale today.
+If it wasn't on your plan, it wasn't in your budget.
+Discount or not — money left in your account is the biggest saving of all.
+
+⸻
+
+📊 How This Affects Your Snowball Progress
+
+That "small" purchase delays you paying off debt.
+£50 saved on a sale item is still £50 you no longer have to reduce your balance.
+And the interest on your debts? That doesn't care about your bargain.
+
+Ask yourself:
+
+"Does this help me get debt-free faster, or slower?"
+
+⸻
+
+🔄 Better Habits to Build Instead:
+    1.    Create a 24-hour rule. No impulse buys. Save it to a wishlist. Revisit tomorrow.
+    2.    Track your 'almost bought it' moments. You'll see how much you've really saved.
+    3.    Visualise progress, not possessions. That number dropping on your debt chart? That's the reward.
+    4.    Rewrite the narrative:
+Instead of: "I saved £40!"
+Say: "I saved £40… from myself, and my future thanks me."
+
+⸻
+
+🚫 It's Not About Deprivation.
+
+It's about making sure your money goes where you want — not where retailers nudge it.
+
+Your summer doesn't need a sale.
+It needs a plan.
+
+⸻
+
+Stay focused. Keep going. Your future self is cheering you on.`
+    },
+    { 
       tag: 'UK Debt Crisis', 
       title: 'UK Debt Statistics 2025: The Complete Picture', 
       desc: 'Latest data from Parliament, Money and Pensions Service, and StepChange on the UK debt crisis.',
