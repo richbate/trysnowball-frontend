@@ -110,7 +110,7 @@ const calculateExtraPaymentForTarget = (targetMonths, debts, totalMinPayments) =
 // Main component
 const WhatIfMachine = () => {
   const navigate = useNavigate();
-  const { debts: rawDebts, totalMinPayments } = useDataManager();
+  const { debts: rawDebts, totalDebt, totalMinPayments } = useDataManager();
   const [extraPayment, setExtraPayment] = useState(100);
   const [showSnowballSuccess, setShowSnowballSuccess] = useState(false);
 
@@ -267,6 +267,9 @@ const WhatIfMachine = () => {
         <h1 className="text-2xl font-bold mb-2 text-center text-gray-800">What If Machine</h1>
         <p className="text-center text-gray-600 mb-2">
           Adjust extra payments to see how fast you could be debt-free.
+        </p>
+        <p className="text-center text-lg font-semibold text-red-600 mb-2">
+          Current Total Debt: {formatCurrency(totalDebt)}
         </p>
         <p className="text-center text-lg font-semibold text-blue-600 mb-4">
           Total Snowball Payment: {formatCurrency(totalMinPayments + extraPayment)}/month
