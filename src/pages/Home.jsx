@@ -45,11 +45,15 @@ const Home = () => {
   };
   return (
     <div className={`min-h-screen ${colors.background} ${colors.text.primary} px-6 py-12`}>
-      <header className="text-center mb-16">
+      <header className="text-center mb-16 max-w-4xl mx-auto">
         <h1 className="text-5xl font-bold text-primary mb-4">TrySnowball</h1>
-        <p className={`text-xl mb-2 ${colors.text.secondary}`}>Debt is stealing your future.</p>
-        <p className={`text-2xl font-bold ${colors.text.primary} mb-6`}>Take it back.</p>
-        <div className="space-y-3 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center">
+        <p className="text-lg leading-relaxed mb-4 font-semibold">
+          Pay off debt faster, with less guesswork.
+        </p>
+        <p className="text-lg leading-relaxed mb-6">
+          TrySnowball helps you see your debt clearly, change your habits, and find hidden money to throw at it.
+        </p>
+        <div className="space-y-3 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center mb-8">
           <button
             onClick={handleTryDemo}
             className="w-full sm:w-auto bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-accent transition-colors shadow-lg"
@@ -60,14 +64,7 @@ const Home = () => {
       </header>
 
       <section className="mb-16 max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-primary">What is TrySnowball?</h2>
         <div className={`${colors.surface} rounded-lg p-8 border-l-4 border-primary`}>
-          <p className="text-lg leading-relaxed mb-4 font-semibold">
-            Pay off debt faster, with less guesswork.
-          </p>
-          <p className="text-lg leading-relaxed mb-6">
-            TrySnowball helps you see your debt clearly, change your habits, and find hidden money to throw at it.
-          </p>
           
           <div className={`${colors.surfaceSecondary} rounded-lg p-6 mb-6 ${colors.border} border`}>
             <h3 className={`text-xl font-bold mb-4 ${colors.text.primary}`}>The Debt Snowball Method (hat tip to Dave Ramsey)</h3>
