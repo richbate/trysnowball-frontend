@@ -278,6 +278,14 @@ const AICoach = () => {
               <button onClick={() => navigate('/analyser')} className="hover:text-primary transition-colors">
                 Spend Analyser
               </button>
+              <a 
+                href="https://stan.store/trysnowball/p/buy-me-a-coffee-figkm7db" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:text-primary transition-colors"
+              >
+                ☕ Buy me a Coffee
+              </a>
             </div>
             <div className="border-t border-gray-200 pt-4">
               <p>© {new Date().getFullYear()} TrySnowball. Built in the UK.</p>
