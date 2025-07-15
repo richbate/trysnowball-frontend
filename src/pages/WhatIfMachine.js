@@ -110,7 +110,7 @@ const calculateExtraPaymentForTarget = (targetMonths, debts, totalMinPayments) =
 // Main component
 const WhatIfMachine = () => {
   const navigate = useNavigate();
-  const { debts: rawDebts, totalDebt, totalMinPayments } = useDataManager();
+  const { debts: rawDebts, totalMinPayments } = useDataManager();
   const [extraPayment, setExtraPayment] = useState(100);
   const [showSnowballSuccess, setShowSnowballSuccess] = useState(false);
 
