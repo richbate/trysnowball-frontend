@@ -280,7 +280,7 @@ const SpendAnalyser = () => {
       <div className="max-w-6xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            🔍 AI Spend Analyser
+            AI Spend Analyser
           </h1>
           <p className="text-xl text-gray-600">
             Upload your bank transactions to discover how much you could save
@@ -441,7 +441,7 @@ const SpendAnalyser = () => {
             {/* Next Steps */}
             <div className="bg-blue-50 rounded-lg p-6 border border-blue-200">
               <h3 className="text-lg font-semibold text-blue-900 mb-4">
-                🎯 Next Steps to Debt Freedom
+                Next Steps to Debt Freedom
               </h3>
               <div className="space-y-3 text-blue-800">
 <p>1. <strong>It might be tough, but you could use this {formatCurrency(analysis.totalPotentialSavings)} as extra monthly payment</strong> toward your existing debts</p>
@@ -465,7 +465,7 @@ const SpendAnalyser = () => {
               {analysis && analysis.totalPotentialSavings > 0 && isUsingDemoData && (
                 <div className="bg-yellow-50 rounded-lg p-6 border border-yellow-200">
                   <h3 className="text-lg font-semibold text-yellow-900 mb-2">
-                    📊 This is just demo data!
+                    This is just demo data!
                   </h3>
                   <p className="text-yellow-800 mb-4">
                     You found £{Math.round(analysis.totalPotentialSavings)} in potential savings with demo data. 
@@ -486,7 +486,7 @@ const SpendAnalyser = () => {
                       onClick={() => navigate('/debts')}
                       className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
                     >
-                      🎯 Setup Your Real Debts
+                      Setup Your Real Debts
                     </button>
                   </div>
                 </div>

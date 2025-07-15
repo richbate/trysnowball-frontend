@@ -35,11 +35,11 @@ function Navigation() {
 
   // Navigation items with emojis for better UX - ordered by logical user flow
   const navItems = [
-    ['/', '🏠 Home'],
-    ['/debts', '🎯 My Debts'],
-    ['/analyser', '🔍 Spend Analyser'],
-    ['/what-if', '🚀 What If Machine'],
-    ['/library', '📚 Library'],
+    ['/', 'Home'],
+    ['/debts', 'My Debts'],
+    ['/analyser', 'Spend Analyser'],
+    ['/what-if', 'What If Machine'],
+    ['/library', 'Library'],
   ];
 
   return (

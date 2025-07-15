@@ -233,9 +233,9 @@ const DebtTracker = () => {
   };
 
   const tabs = [
-    { id: 'debts', label: '💳 My Debts', count: debts.length },
-    { id: 'payments', label: '📅 Payment History', count: 'New' },
-    { id: 'progress', label: '📊 Progress', count: getPaymentHistory().length > 0 ? 'Active' : 'Setup' }
+    { id: 'debts', label: 'My Debts', count: debts.length },
+    { id: 'payments', label: 'Payment History', count: 'New' },
+    { id: 'progress', label: 'Progress', count: getPaymentHistory().length > 0 ? 'Active' : 'Setup' }
   ];
 
   const renderDebtsTab = () => (
@@ -1071,7 +1071,7 @@ const DebtTracker = () => {
       <div className="max-w-6xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            🎯 Debt Tracker
+            Debt Tracker
           </h1>
           <p className="text-xl text-gray-600">
             {hasOnlyDemoData ? 'Using realistic demo data - clear it out and add your real debts!' : 'Track your debts and payments with the scientifically proven snowball method'}

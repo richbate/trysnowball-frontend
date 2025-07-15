@@ -209,10 +209,10 @@ const Library = () => {
 
 
   const tabs = [
-    { id: 'research', label: '🎓 Research & Statistics', count: '4 studies' },
-    { id: 'articles', label: '📚 In-Depth Articles', count: articles.length },
-    { id: 'tools', label: '🛠️ Free UK Tools & Resources', count: toolsAndResources.length },
-    { id: 'books', label: '📖 Recommended Books', count: books.length },
+    { id: 'research', label: 'Research & Statistics', count: '4 studies' },
+    { id: 'articles', label: 'In-Depth Articles', count: articles.length },
+    { id: 'tools', label: 'Free UK Tools & Resources', count: toolsAndResources.length },
+    { id: 'books', label: 'Recommended Books', count: books.length },
   ];
 
   const renderResearch = () => (
@@ -226,7 +226,7 @@ const Library = () => {
       ))}
       
       <div className="bg-white rounded-lg shadow-sm border p-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">📊 Try Our Research-Backed Calculator</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">Try Our Research-Backed Calculator</h2>
         <p className="text-gray-600 mb-6">
           Put this research into action with our free debt snowball calculator. 
           Based on the proven methods from Northwestern University and Harvard Business Review.
@@ -235,7 +235,7 @@ const Library = () => {
           onClick={() => navigate('/what-if')}
           className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
         >
-          🚀 Try the What If Machine
+          Try the What If Machine
         </button>
       </div>
     </div>
@@ -347,7 +347,7 @@ const Library = () => {
             rel="noopener noreferrer"
             className="inline-flex items-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors text-sm font-medium"
           >
-            📚 Buy on Amazon →
+            Buy on Amazon →
           </a>
         </div>
       ))}
@@ -421,13 +421,13 @@ const Library = () => {
               onClick={() => navigate('/what-if')}
               className="px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
             >
-              🚀 Try the What If Machine
+              Try the What If Machine
             </button>
             <button 
               onClick={() => navigate('/analyser')}
               className="px-6 py-3 bg-transparent border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
             >
-              🔍 Analyse Your Spending
+              Analyse Your Spending
             </button>
           </div>
         </div>

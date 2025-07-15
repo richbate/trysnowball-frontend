@@ -76,8 +76,8 @@ const Home = () => {
 
       {/* Spend Analyser Section */}
       <section className="mb-16 max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-primary">🔍 AI Spend Analyser</h2>
-        <div className={`${colors.surface} rounded-lg p-8 border-l-4 border-green-500`}>
+        <h2 className="text-3xl font-bold mb-6 text-primary">AI Spend Analyser</h2>
+        <div className={`${colors.surface} rounded-lg p-8 border-l-4 border-primary`}>
           <p className="text-lg leading-relaxed mb-4">
             Upload your bank transactions and discover exactly where your money goes — and where you can save.
           </p>
@@ -91,7 +91,7 @@ const Home = () => {
           <div className="space-y-3 sm:space-y-0 sm:space-x-4 sm:flex">
             <button
               onClick={() => navigate('/analyser')}
-              className="w-full sm:w-auto bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors shadow"
+              className="w-full sm:w-auto bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-accent transition-colors shadow"
             >
               Analyse My Spending
             </button>
@@ -187,6 +187,30 @@ const Home = () => {
             </button>
           </form>
         )}
+      </section>
+
+      {/* Free Tool Messaging */}
+      <section className={`${colors.surface} rounded-lg shadow-sm p-8 my-16 max-w-4xl mx-auto ${colors.border} border`}>
+        <div className="text-center">
+          <h2 className={`text-3xl font-bold mb-4 ${colors.text.primary}`}>Free Financial Freedom Tool</h2>
+          <p className={`text-lg mb-6 ${colors.text.secondary}`}>
+            TrySnowball is completely free to use. We believe everyone deserves access to powerful debt management tools.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div className={`${colors.surfaceSecondary} rounded-lg p-4`}>
+              <h3 className={`font-semibold mb-2 ${colors.text.primary}`}>Your Data, Your Control</h3>
+              <p className={`text-sm ${colors.text.muted}`}>
+                All your financial data stays on your device. Download it anytime as a workbook for offline use.
+              </p>
+            </div>
+            <div className={`${colors.surfaceSecondary} rounded-lg p-4`}>
+              <h3 className={`font-semibold mb-2 ${colors.text.primary}`}>More Features Coming Soon</h3>
+              <p className={`text-sm ${colors.text.muted}`}>
+                We're constantly adding new features and improvements. Sign up for updates to stay informed.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <footer className={`text-center mt-16 text-sm ${colors.text.muted}`}>

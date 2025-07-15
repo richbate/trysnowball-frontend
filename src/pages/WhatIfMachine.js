@@ -335,9 +335,9 @@ const WhatIfMachine = () => {
                 const requiredExtra = calculateExtraPaymentForTarget(targetMonths, debts, totalMinPayments);
                 setExtraPayment(requiredExtra);
               }}
-              className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+              className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-accent transition-colors"
             >
-              🚀 Cut debt time in half! (Need {formatCurrency(calculateExtraPaymentForTarget(Math.floor(snowballPayoffMonths / 2), debts, totalMinPayments))}/month extra)
+              Cut debt time in half! (Need {formatCurrency(calculateExtraPaymentForTarget(Math.floor(snowballPayoffMonths / 2), debts, totalMinPayments))}/month extra)
             </button>
           </div>
         )}
@@ -358,38 +358,18 @@ const WhatIfMachine = () => {
             <Legend
               iconType="rect"
               formatter={(value) =>
-                value === 'doNothing' ? 'Do Nothing (Interest Only)' :
                 value === 'minimumOnly' ? 'Minimum Payments Only' :
                 'Snowball Method'
               }
               wrapperStyle={{ paddingBottom: '10px' }}
             />
-            <Line type="monotone" dataKey="doNothing" stroke="#ef4444" strokeWidth={2} dot={false} />
             <Line type="monotone" dataKey="minimumOnly" stroke="#f59e0b" strokeWidth={2} dot={false} />
             <Line type="monotone" dataKey="snowball" stroke="#10b981" strokeWidth={2} dot={false} />
           </LineChart>
         </ResponsiveContainer>
 
         {/* Scary Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          {/* Do Nothing */}
-          <div className="bg-red-50 border-l-4 border-red-500 rounded-lg p-6">
-            <div className="flex items-center mb-3">
-              <div className="bg-red-100 rounded-full p-2 mr-3">
-                <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.96-.833-2.732 0L3.732 16c-.77.833.192 2.5 1.732 2.5z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-bold text-red-800">Do Nothing</h3>
-            </div>
-            <p className="text-3xl font-bold text-red-600 mb-2">
-              {formatCurrency(scenarios.doNothing[12]?.balance)}
-            </p>
-            <p className="text-sm text-red-700">After 1 year</p>
-            <p className="text-xs text-red-600 mt-2">
-              +{formatCurrency(scenarios.doNothing[12]?.balance - totalDebt)} in interest
-            </p>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
 
           {/* Minimum Payments */}
           <div className="bg-yellow-50 border-l-4 border-yellow-500 rounded-lg p-6">
@@ -407,6 +387,9 @@ const WhatIfMachine = () => {
             <p className="text-sm text-yellow-700">to pay off</p>
             <p className="text-xs text-yellow-600 mt-2">
               {formatCurrency(minimumInterestPaid)} total interest
+            </p>
+            <p className="text-xs text-gray-500 mt-1">
+              Without payments, debt would grow to {formatCurrency(scenarios.doNothing[12]?.balance)} in 1 year
             </p>
           </div>
 
