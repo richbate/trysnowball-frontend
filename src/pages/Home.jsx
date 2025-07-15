@@ -46,13 +46,13 @@ const Home = () => {
   return (
     <div className={`min-h-screen ${colors.background} ${colors.text.primary} px-6 py-12`}>
       <header className="text-center mb-16">
-        <h1 className="text-5xl font-bold text-blue-500 mb-4">TrySnowball</h1>
+        <h1 className="text-5xl font-bold text-primary mb-4">TrySnowball</h1>
         <p className={`text-xl mb-2 ${colors.text.secondary}`}>Debt is stealing your future.</p>
         <p className={`text-2xl font-bold ${colors.text.primary} mb-6`}>Take it back.</p>
         <div className="space-y-3 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center">
           <button
             onClick={handleTryDemo}
-            className="w-full sm:w-auto bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg"
+            className="w-full sm:w-auto bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-accent transition-colors shadow-lg"
           >
             Try Demo
           </button>
@@ -60,10 +60,10 @@ const Home = () => {
       </header>
 
       <section className="mb-16 max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-blue-500">What is TrySnowball?</h2>
-        <div className={`${colors.surface} rounded-lg p-8 border-l-4 border-blue-500`}>
+        <h2 className="text-3xl font-bold mb-6 text-primary">What is TrySnowball?</h2>
+        <div className={`${colors.surface} rounded-lg p-8 border-l-4 border-primary`}>
           <p className="text-lg leading-relaxed mb-4">
-            TrySnowball <span className="text-blue-500 font-semibold">weaponizes</span> the proven debt snowball method to 
+            TrySnowball <span className="text-primary font-semibold">weaponizes</span> the proven debt snowball method to 
             <span className={`${colors.text.primary} font-bold`}> demolish your debt faster</span> than you thought possible.
           </p>
           <p className={`${colors.text.secondary} text-lg`}>
@@ -76,7 +76,7 @@ const Home = () => {
 
       {/* Spend Analyser Section */}
       <section className="mb-16 max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-blue-500">🔍 AI Spend Analyser</h2>
+        <h2 className="text-3xl font-bold mb-6 text-primary">🔍 AI Spend Analyser</h2>
         <div className={`${colors.surface} rounded-lg p-8 border-l-4 border-green-500`}>
           <p className="text-lg leading-relaxed mb-4">
             Upload your bank transactions and discover exactly where your money goes — and where you can save.
@@ -106,24 +106,24 @@ const Home = () => {
       </section>
 
       <section className="mb-16 max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-blue-500">The What If Machine</h2>
-        <div className={`${colors.surface} rounded-lg p-8 border-l-4 border-blue-500`}>
+        <h2 className="text-3xl font-bold mb-6 text-primary">The What If Machine</h2>
+        <div className={`${colors.surface} rounded-lg p-8 border-l-4 border-primary`}>
           <p className="text-lg leading-relaxed mb-4">
-            What if you could <span className="text-blue-500 font-semibold">see your debt-free date</span>? 
+            What if you could <span className="text-primary font-semibold">see your debt-free date</span>? 
             What if that daily coffee habit is <span className={`${colors.text.primary} font-semibold`}>costing you 6 months of freedom</span>? 
-            What if an extra £50/month could <span className="text-blue-500 font-semibold">save you thousands</span>?
+            What if an extra £50/month could <span className="text-primary font-semibold">save you thousands</span>?
           </p>
           <p className={`text-lg font-bold ${colors.text.primary} mb-4`}>
             Stop wondering. Start seeing.
           </p>
           <p className={`${colors.text.secondary} mb-6`}>
             Our What If Machine shows you exactly how small changes create massive results—turning 
-            <span className="text-blue-500 font-medium"> "what if"</span> into 
+            <span className="text-primary font-medium"> "what if"</span> into 
             <span className={`${colors.text.primary} font-medium`}> "when will I be free?"</span>
           </p>
           <button 
             onClick={() => navigate('/what-if')}
-            className="text-blue-500 hover:text-blue-400 font-semibold text-lg"
+            className="text-primary hover:text-accent font-semibold text-lg"
           >
             See your way out →
           </button>
@@ -131,8 +131,8 @@ const Home = () => {
       </section>
 
       <section className="mb-16 max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-blue-500">Try the AI Coach</h2>
-        <div className={`${colors.surface} rounded-lg p-8 border-l-4 border-blue-500`}>
+        <h2 className="text-3xl font-bold mb-6 text-primary">Try the AI Coach</h2>
+        <div className={`${colors.surface} rounded-lg p-8 border-l-4 border-primary`}>
           <p className="text-lg leading-relaxed mb-4">
             Want a no-fluff plan to kill your debt? The <span className={`${colors.text.primary} font-semibold`}>TrySnowball AI Debt Coach</span> gives you a
             personalised ChatGPT script, a printable worksheet, and a plan you can load straight into the app.
@@ -144,7 +144,7 @@ const Home = () => {
             href="https://stan.store/trysnowball/p/personal-ai-debt-coach"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow"
+            className="inline-block px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-accent transition-colors shadow"
           >
             🛒 Get the AI Coach – £2.99
           </a>
@@ -181,7 +181,7 @@ const Home = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-semibold disabled:opacity-50"
+              className="w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-accent transition-colors font-semibold disabled:opacity-50"
             >
               {isSubmitting ? 'Sending...' : 'Get Updates'}
             </button>

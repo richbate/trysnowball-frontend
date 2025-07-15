@@ -51,9 +51,13 @@ function Navigation() {
             {/* Logo/Brand */}
             <Link 
               to="/"
-              className={`flex items-center space-x-2 text-2xl font-bold ${colors.brand.text} transition-colors`}
+              className="flex items-center space-x-3 transition-colors"
             >
-              <span>TrySnowball</span>
+              <img 
+                src="/logo-transparent.png" 
+                alt="Try Snowball logo" 
+                className="h-10 w-auto"
+              />
               <span className={`text-sm ${colors.text.muted} font-normal`}>Debt Freedom Tool</span>
             </Link>
 
@@ -65,7 +69,7 @@ function Navigation() {
                   to={path}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                     location.pathname === path
-                      ? 'bg-blue-600 text-white shadow-sm transform scale-105'
+                      ? 'bg-primary text-white shadow-sm transform scale-105'
                       : `${colors.text.secondary} hover:${colors.text.primary} hover:${colors.surfaceSecondary}`
                   }`}
                 >
@@ -102,7 +106,7 @@ function Navigation() {
                     }}
                     className={`px-4 py-2 text-left rounded-lg text-sm font-medium transition-colors ${
                       location.pathname === path
-                        ? 'bg-blue-600 text-white'
+                        ? 'bg-primary text-white'
                         : `${colors.text.secondary} hover:${colors.text.primary} hover:${colors.surfaceSecondary}`
                     }`}
                   >
