@@ -232,6 +232,79 @@ const DebtTracker = () => {
     linkElement.click();
   };
 
+  const downloadWorksheet = () => {
+    if (debts.length === 0) {
+      alert('Please add your debts first before downloading.');
+      return;
+    }
+
+    // Create CSV headers
+    const headers = [
+      'Account Name',
+      'Current Balance',
+      'Interest Rate (%)',
+      'Minimum Payment',
+      'Credit Limit',
+      'Available Credit',
+      'Used Percentage',
+      'Payment Made',
+      'Interest Charged',
+      'Purchases Made',
+      'Notes'
+    ];
+
+    // Convert debts to CSV format
+    const csvData = debts.map(debt => {
+      const availableCredit = debt.limit ? debt.limit - debt.amount : 0;
+      const usedPercentage = debt.limit ? Math.round((debt.amount / debt.limit) * 100) : 0;
+      
+      return [
+        debt.name,
+        debt.amount,
+        debt.interest,
+        debt.regularPayment,
+        debt.limit || '',
+        availableCredit > 0 ? availableCredit : '',
+        debt.limit ? usedPercentage : '',
+        '', // Payment Made - empty for user to fill
+        '', // Interest Charged - empty for user to fill
+        '', // Purchases Made - empty for user to fill
+        ''  // Notes - empty for user to fill
+      ];
+    });
+
+    // Add summary row
+    csvData.push([
+      'TOTAL',
+      totalDebt,
+      '',
+      totalMinPayments,
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      `Generated: ${new Date().toLocaleDateString()}`
+    ]);
+
+    // Convert to CSV string
+    const csvContent = [headers, ...csvData]
+      .map(row => row.map(cell => `"${cell}"`).join(','))
+      .join('\n');
+
+    // Create and download file
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `trysnowball-worksheet-${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const tabs = [
     { id: 'debts', label: 'My Debts', count: debts.length },
     { id: 'payments', label: 'Payment History', count: 'New' },
@@ -543,6 +616,29 @@ const DebtTracker = () => {
                 })}
               </tbody>
             </table>
+          </div>
+        </div>
+      )}
+
+      {/* Worksheet Download Section */}
+      {debts.length > 0 && !hasOnlyDemoData && (
+        <div className="bg-green-50 rounded-lg p-6 border border-green-200">
+          <h3 className="text-lg font-semibold text-green-900 mb-4">
+            📊 Download Your Debt Worksheet
+          </h3>
+          <p className="text-sm text-green-800 mb-4">
+            Get a comprehensive CSV workbook with all your debt information. Perfect for offline tracking, sharing with financial advisors, or your own record-keeping.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <button
+              onClick={downloadWorksheet}
+              className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
+            >
+              📥 Download Debt Worksheet (CSV)
+            </button>
+          </div>
+          <div className="mt-4 text-xs text-green-600 bg-green-100 rounded p-3">
+            <p><strong>What you'll get:</strong> A comprehensive CSV file with your debt balances, interest rates, credit utilization, and empty columns for tracking payments, interest charged, and personal notes. Perfect for spreadsheet apps like Excel or Google Sheets.</p>
           </div>
         </div>
       )}
