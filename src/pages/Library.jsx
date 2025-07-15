@@ -66,7 +66,7 @@ const Library = () => {
       desc: 'Why "I saved 40%!" actually means "you spent 60%." Understanding the psychology of sales and impulse buying.',
       readTime: '6 min',
       keywords: 'summer sales, spending habits, impulse buying, retail therapy, debt freedom',
-      externalLink: 'https://www.moneyhelper.org.uk/en/everyday-money/shopping/how-to-stop-impulse-buying',
+      externalLink: 'https://www.ramseysolutions.com/budgeting/stop-impulse-buys',
       content: `**"I saved 40%!
 
 No… you spent 60%.**
@@ -284,6 +284,7 @@ Stay focused. Keep going. Your future self is cheering you on.`
 
   const tabs = [
     { id: 'research', label: 'Research & Statistics', count: '4 studies' },
+    { id: 'latest', label: 'Latest Posts', count: 'newsletter' },
     { id: 'articles', label: 'In-Depth Articles', count: articles.length },
     { id: 'tools', label: 'Free UK Tools & Resources', count: toolsAndResources.length },
     { id: 'books', label: 'Recommended Books', count: books.length },
@@ -311,6 +312,70 @@ Stay focused. Keep going. Your future self is cheering you on.`
         >
           Try the What If Machine
         </button>
+      </div>
+    </div>
+  );
+
+  const renderLatestPosts = () => (
+    <div className="space-y-8">
+      {/* Newsletter Signup Header */}
+      <div className="bg-white rounded-lg shadow-sm border p-8">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Latest Debt Freedom Insights</h2>
+          <p className="text-lg text-gray-600 mb-6">
+            Get fresh perspectives on debt elimination, spending psychology, and financial freedom delivered straight to your inbox.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-600 mb-6">
+            <span>✅ Weekly debt freedom tips</span>
+            <span>✅ Real UK case studies</span>
+            <span>✅ Psychology-backed strategies</span>
+            <span>✅ No spam, ever</span>
+          </div>
+        </div>
+        
+        {/* Substack Embed */}
+        <div className="flex justify-center">
+          <div className="w-full max-w-md">
+            <iframe 
+              src="https://trysnowball.substack.com/embed" 
+              width="100%" 
+              height="320" 
+              style={{border: '1px solid #EEE', background: 'white'}} 
+              frameBorder="0" 
+              scrolling="no"
+              className="rounded-lg shadow-sm"
+              title="TrySnowball Newsletter Signup"
+            />
+          </div>
+        </div>
+        
+        <div className="mt-8 text-center">
+          <p className="text-sm text-gray-500">
+            Join thousands of readers who get actionable debt freedom insights every week.
+          </p>
+        </div>
+      </div>
+      
+      {/* Call to Action */}
+      <div className="bg-gradient-to-r from-blue-600 to-green-600 text-white rounded-lg p-8 text-center">
+        <h3 className="text-2xl font-bold mb-3">Ready to Start Your Debt-Free Journey?</h3>
+        <p className="text-lg mb-6 opacity-90">
+          Combine our free tools with weekly insights to accelerate your path to financial freedom.
+        </p>
+        <div className="flex flex-wrap justify-center gap-4">
+          <button 
+            onClick={() => navigate('/what-if')}
+            className="px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+          >
+            Try the What If Machine
+          </button>
+          <button 
+            onClick={() => navigate('/analyser')}
+            className="px-6 py-3 bg-transparent border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
+          >
+            Analyse Your Spending
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -432,6 +497,7 @@ Stay focused. Keep going. Your future self is cheering you on.`
   const renderContent = () => {
     switch(activeTab) {
       case 'research': return renderResearch();
+      case 'latest': return renderLatestPosts();
       case 'articles': return renderArticles();
       case 'tools': return renderTools();
       case 'books': return renderBooks();
