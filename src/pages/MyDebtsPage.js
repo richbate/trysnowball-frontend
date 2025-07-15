@@ -67,10 +67,13 @@ const DebtTracker = () => {
     name: '',
     amount: '',
     interest: 20,
-    regularPayment: ''
+    regularPayment: '',
+    limit: ''
   });
   const [editingPayment, setEditingPayment] = useState(null);
   const [paymentAmount, setPaymentAmount] = useState('');
+  const [editingLimit, setEditingLimit] = useState(null);
+  const [limitAmount, setLimitAmount] = useState('');
 
   // Load demo data if no debts exist
   useEffect(() => {
@@ -96,10 +99,11 @@ const DebtTracker = () => {
         amount: parseFloat(formData.amount),
         interest: parseFloat(formData.interest),
         regularPayment: parseFloat(formData.regularPayment),
+        limit: formData.limit ? parseFloat(formData.limit) : undefined,
         isDemo: false
       });
       
-      setFormData({ name: '', amount: '', interest: 20, regularPayment: '' });
+      setFormData({ name: '', amount: '', interest: 20, regularPayment: '', limit: '' });
       setShowAddForm(false);
     } catch (err) {
       console.error('Error saving debt:', err);
@@ -126,6 +130,23 @@ const DebtTracker = () => {
       } catch (err) {
         console.error('Error clearing data:', err);
       }
+    }
+  };
+
+  const handleUpdateLimit = async (debtId, newLimit) => {
+    try {
+      const debt = debts.find(d => d.id === debtId);
+      if (!debt) return;
+
+      await saveDebt({
+        ...debt,
+        limit: newLimit ? parseFloat(newLimit) : undefined
+      });
+      
+      setEditingLimit(null);
+      setLimitAmount('');
+    } catch (err) {
+      console.error('Error updating limit:', err);
     }
   };
 
@@ -339,6 +360,22 @@ const DebtTracker = () => {
               />
             </div>
 
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Credit Limit (£)
+              </label>
+              <input
+                type="number"
+                value={formData.limit}
+                onChange={(e) => setFormData({...formData, limit: e.target.value})}
+                placeholder="5000"
+                min="0"
+                step="0.01"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <p className="text-xs text-gray-500 mt-1">Optional - for credit cards and overdrafts</p>
+            </div>
+
             <div className="md:col-span-2 flex gap-3">
               <button
                 onClick={handleSubmit}
@@ -412,7 +449,7 @@ const DebtTracker = () => {
                   const available = debt.limit ? debt.limit - debt.amount : 0;
                   
                   return (
-                    <tr key={debt.id} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                    <tr key={debt.id} className={`group ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="text-sm font-medium text-gray-900">
@@ -444,7 +481,49 @@ const DebtTracker = () => {
                         £{debt.regularPayment.toLocaleString()}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm text-gray-500">
-                        {debt.limit ? `£${debt.limit.toLocaleString()}` : 'N/A'}
+                        {editingLimit === debt.id ? (
+                          <div className="flex items-center justify-end space-x-2">
+                            <span className="text-sm text-gray-500">£</span>
+                            <input
+                              type="number"
+                              value={limitAmount}
+                              onChange={(e) => setLimitAmount(e.target.value)}
+                              placeholder={debt.limit ? debt.limit.toString() : '0'}
+                              className="w-20 px-2 py-1 border border-gray-300 rounded text-sm text-right"
+                              min="0"
+                              step="0.01"
+                              autoFocus
+                            />
+                            <button
+                              onClick={() => handleUpdateLimit(debt.id, limitAmount)}
+                              className="text-green-600 hover:text-green-700 text-xs"
+                            >
+                              ✓
+                            </button>
+                            <button
+                              onClick={() => {
+                                setEditingLimit(null);
+                                setLimitAmount('');
+                              }}
+                              className="text-red-600 hover:text-red-700 text-xs"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="flex items-center justify-end space-x-2">
+                            <span>{debt.limit ? `£${debt.limit.toLocaleString()}` : 'N/A'}</span>
+                            <button
+                              onClick={() => {
+                                setEditingLimit(debt.id);
+                                setLimitAmount(debt.limit?.toString() || '');
+                              }}
+                              className="text-blue-600 hover:text-blue-700 text-xs opacity-0 group-hover:opacity-100 transition-opacity"
+                            >
+                              Edit
+                            </button>
+                          </div>
+                        )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right">
                         <div className="text-sm text-green-600">

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react
 import { ThemeProvider, useTheme } from './contexts/ThemeContext';
 import { UserFlowProvider } from './contexts/UserFlowContext';
 import ThemeToggle from './components/ThemeToggle';
-import AccountPrompt from './components/AccountPrompt';
+import EmailPrompt from './components/EmailPrompt';
 import DebtTracker from './pages/MyDebtsPage';
 //import Auth, { useAuth } from './components/auth';
 import WhatIfMachine from './pages/WhatIfMachine';
@@ -126,8 +126,8 @@ function Navigation() {
         </Routes>
       </div>
 
-      {/* Account Prompt */}
-      <AccountPrompt />
+      {/* Email Prompt */}
+      <EmailPrompt />
 
       {/* Footer */}
       <footer className={`${colors.surface} ${colors.border} border-t mt-16`}>
