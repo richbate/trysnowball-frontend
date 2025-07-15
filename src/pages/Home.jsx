@@ -62,90 +62,101 @@ const Home = () => {
       <section className="mb-16 max-w-4xl mx-auto">
         <h2 className="text-3xl font-bold mb-6 text-primary">What is TrySnowball?</h2>
         <div className={`${colors.surface} rounded-lg p-8 border-l-4 border-primary`}>
+          <p className="text-lg leading-relaxed mb-4 font-semibold">
+            Pay off debt faster, with less guesswork.
+          </p>
           <p className="text-lg leading-relaxed mb-4">
-            TrySnowball <span className="text-primary font-semibold">weaponizes</span> the proven debt snowball method to 
-            <span className={`${colors.text.primary} font-bold`}> demolish your debt faster</span> than you thought possible.
+            TrySnowball helps you see your debt clearly, change your habits, and find hidden money to throw at it.
           </p>
           <p className={`${colors.text.secondary} text-lg`}>
-            <strong className={colors.text.primary}>Small debts first.</strong> 
-            <strong className={colors.text.primary}> Momentum builds.</strong> 
-            <strong className={colors.text.primary}> Freedom follows.</strong>
+            It's built on the proven snowball method:
+            <br />
+            <strong className={colors.text.primary}>Start small, build momentum, get free.</strong>
           </p>
         </div>
       </section>
 
       {/* Spend Analyser Section */}
       <section className="mb-16 max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-primary">AI Spend Analyser</h2>
+        <h2 className="text-3xl font-bold mb-6 text-primary">🔍 AI Spend Analyser</h2>
         <div className={`${colors.surface} rounded-lg p-8 border-l-4 border-primary`}>
+          <p className="text-lg leading-relaxed mb-4 font-semibold">
+            Where's your money really going?
+          </p>
           <p className="text-lg leading-relaxed mb-4">
-            Upload your bank transactions and discover exactly where your money goes — and where you can save.
+            Upload your bank transactions — our AI spots hidden spending leaks, fast.
           </p>
-          <div className={`${colors.surfaceSecondary} rounded-lg p-4 mb-4 ${colors.border} border`}>
-            <div className="text-3xl font-bold text-green-500 mb-2">£215</div>
-            <p className={`text-sm ${colors.text.muted}`}>Average monthly savings found</p>
-          </div>
-          <p className={`${colors.text.secondary} mb-6`}>
-            Find hidden money for your debt snowball with AI-powered spending analysis. Your data stays private — everything happens in your browser.
-          </p>
+          <ul className="mb-4 space-y-2 text-lg">
+            <li className="flex items-center">
+              <span className="mr-2">•</span>
+              <span className="font-semibold text-green-600">£215 average monthly savings found</span>
+            </li>
+            <li className="flex items-center">
+              <span className="mr-2">•</span>
+              <span>Your data stays private — analysis happens in your browser.</span>
+            </li>
+          </ul>
           <div className="space-y-3 sm:space-y-0 sm:space-x-4 sm:flex">
             <button
               onClick={() => navigate('/analyser')}
               className="w-full sm:w-auto bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-accent transition-colors shadow"
             >
-              Analyse My Spending
+              → Analyse My Spending
             </button>
             <button
               onClick={() => navigate('/analyser')}
               className={`w-full sm:w-auto ${colors.surfaceSecondary} ${colors.text.secondary} px-6 py-3 rounded-lg font-semibold hover:${colors.surface} transition-colors`}
             >
-              Try Demo Data
+              → Try Demo Data
             </button>
           </div>
         </div>
       </section>
 
       <section className="mb-16 max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-primary">The What If Machine</h2>
+        <h2 className="text-3xl font-bold mb-6 text-primary">🔮 The What If Machine</h2>
         <div className={`${colors.surface} rounded-lg p-8 border-l-4 border-primary`}>
+          <p className="text-lg leading-relaxed mb-4 font-semibold">
+            Want to see your debt-free date?
+          </p>
           <p className="text-lg leading-relaxed mb-4">
-            What if you could <span className="text-primary font-semibold">see your debt-free date</span>? 
-            What if that daily coffee habit is <span className={`${colors.text.primary} font-semibold`}>costing you 6 months of freedom</span>? 
-            What if an extra £50/month could <span className="text-primary font-semibold">save you thousands</span>?
+            What if you ditched that daily coffee? Paid £50 extra a month?
+            <br />
+            What if you could see the impact instantly?
           </p>
           <p className={`text-lg font-bold ${colors.text.primary} mb-4`}>
-            Stop wondering. Start seeing.
+            Stop guessing. Start seeing.
           </p>
           <p className={`${colors.text.secondary} mb-6`}>
-            Our What If Machine shows you exactly how small changes create massive results—turning 
-            <span className="text-primary font-medium"> "what if"</span> into 
-            <span className={`${colors.text.primary} font-medium`}> "when will I be free?"</span>
+            Our What If Machine shows how small changes create big results.
           </p>
           <button 
             onClick={() => navigate('/what-if')}
             className="text-primary hover:text-accent font-semibold text-lg"
           >
-            See your way out →
+            → See Your Way Out
           </button>
         </div>
       </section>
 
       <section className="mb-16 max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-primary">Try the AI Coach</h2>
+        <h2 className="text-3xl font-bold mb-6 text-primary">💡 AI Debt Coach</h2>
         <div className={`${colors.surface} rounded-lg p-8 border-l-4 border-primary`}>
+          <p className="text-lg leading-relaxed mb-4 font-semibold">
+            Need a no-BS plan?
+          </p>
           <p className="text-lg leading-relaxed mb-4">
-            Want a no-fluff plan to kill your debt? The <span className={`${colors.text.primary} font-semibold`}>TrySnowball AI Debt Coach</span> gives you a
-            personalised ChatGPT script, a printable worksheet, and a plan you can load straight into the app.
+            Get a personalised ChatGPT script, a printable worksheet, and a plan ready to load into TrySnowball.
           </p>
           <p className={`${colors.text.secondary} mb-6`}>
-            Designed for real UK life — credit cards, Klarna, overdrafts, and all. It's tough love in digital form.
+            Made for real UK life — credit cards, Klarna, overdrafts and all.
           </p>
           <div className="space-y-3 sm:space-y-0 sm:space-x-4 sm:flex">
             <button
               onClick={() => navigate('/ai-coach')}
               className="w-full sm:w-auto bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-accent transition-colors shadow"
             >
-              Learn More About AI Coach
+              → Learn More About AI Coach
             </button>
             <a
               href="https://stan.store/trysnowball/p/personal-ai-debt-coach"
@@ -153,7 +164,7 @@ const Home = () => {
               rel="noopener noreferrer"
               className="w-full sm:w-auto inline-block px-6 py-3 bg-transparent border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-white transition-colors shadow text-center"
             >
-              🛒 Get the AI Coach – £2.99
+              → 🛒 Get the AI Coach – £2.99
             </a>
           </div>
         </div>
@@ -197,27 +208,18 @@ const Home = () => {
         )}
       </section>
 
-      {/* Free Tool Messaging */}
+      {/* Purpose Statement */}
       <section className={`${colors.surface} rounded-lg shadow-sm p-8 my-16 max-w-4xl mx-auto ${colors.border} border`}>
         <div className="text-center">
-          <h2 className={`text-3xl font-bold mb-4 ${colors.text.primary}`}>Free Financial Freedom Tool</h2>
-          <p className={`text-lg mb-6 ${colors.text.secondary}`}>
-            TrySnowball is completely free to use. We believe everyone deserves access to powerful debt management tools.
+          <p className={`text-lg mb-4 ${colors.text.secondary}`}>
+            TrySnowball exists for one reason:
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div className={`${colors.surfaceSecondary} rounded-lg p-4`}>
-              <h3 className={`font-semibold mb-2 ${colors.text.primary}`}>Your Data, Your Control</h3>
-              <p className={`text-sm ${colors.text.muted}`}>
-                All your financial data stays on your device. Download it anytime as a workbook for offline use.
-              </p>
-            </div>
-            <div className={`${colors.surfaceSecondary} rounded-lg p-4`}>
-              <h3 className={`font-semibold mb-2 ${colors.text.primary}`}>More Features Coming Soon</h3>
-              <p className={`text-sm ${colors.text.muted}`}>
-                We're constantly adding new features and improvements. Sign up for updates to stay informed.
-              </p>
-            </div>
-          </div>
+          <p className={`text-2xl font-bold mb-4 ${colors.text.primary}`}>
+            To help you get out of debt, faster, without shame or gimmicks.
+          </p>
+          <p className={`text-lg ${colors.text.secondary}`}>
+            Because you deserve better than minimum payments.
+          </p>
         </div>
       </section>
 
