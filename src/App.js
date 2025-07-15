@@ -137,14 +137,6 @@ function Navigation() {
       <EmailPrompt />
 
       {/* Footer */}
-      <footer className={`${colors.surface} ${colors.border} border-t mt-16`}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className={`text-center ${colors.text.muted} text-sm`}>
-            <p>🔒 All your financial data stays private on your device</p>
-            <p className="mt-2">Built to help you become debt-free faster with the snowball method</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
