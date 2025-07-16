@@ -11,6 +11,7 @@ import Home from './pages/Home';
 import Library from './pages/Library';
 import SpendAnalyser from './components/SpendAnalyser';
 import AICoach from './pages/AICoach';
+import FuturePlans from './pages/FuturePlans';
 
 // const user = true;
 const loading = false;
@@ -42,6 +43,7 @@ function Navigation() {
     ['/what-if', 'What If Machine'],
     ['/ai-coach', 'AI Coach'],
     ['/library', 'Library'],
+    ['/future-plans', 'Future Plans'],
   ];
 
   return (
@@ -130,6 +132,7 @@ function Navigation() {
           <Route path="/debts" element={<DebtTracker />} />
           <Route path="/ai-coach" element={<AICoach />} />
           <Route path="/library" element={<Library />} />
+          <Route path="/future-plans" element={<FuturePlans />} />
         </Routes>
       </div>
 
