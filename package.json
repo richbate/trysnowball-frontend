@@ -18,7 +18,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src/ --ext .js,.jsx",
+    "validate-csp": "node scripts/validate-csp.js",
+    "prebuild": "npm run validate-csp"
   },
   "eslintConfig": {
     "extends": [
