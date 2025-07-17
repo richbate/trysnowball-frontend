@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDataManager } from '../hooks/useDataManager';
+import { useTheme } from '../contexts/ThemeContext';
 
 // Generate realistic random debt data
 const generateRandomDebts = () => {
@@ -41,6 +42,7 @@ const generateRandomDebts = () => {
 
 const DebtTracker = () => {
   const navigate = useNavigate();
+  const { colors } = useTheme();
   const {
     debts,
     totalDebt,
@@ -301,11 +303,11 @@ const DebtTracker = () => {
 
       {/* Add Debt Form */}
       {showAddForm && (
-        <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Add New Debt</h3>
+        <div className={`${colors.surface} rounded-lg shadow-sm p-6 border ${colors.border}`}>
+          <h3 className={`text-lg font-semibold ${colors.text.primary} mb-4`}>Add New Debt</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className={`block text-sm font-medium ${colors.text.secondary} mb-2`}>
                 Debt Name
               </label>
               <input
@@ -313,12 +315,12 @@ const DebtTracker = () => {
                 value={formData.name}
                 onChange={(e) => setFormData({...formData, name: e.target.value})}
                 placeholder="e.g., Credit Card, Car Loan"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={`w-full px-3 py-2 border ${colors.border} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${colors.surface} ${colors.text.primary}`}
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className={`block text-sm font-medium ${colors.text.secondary} mb-2`}>
                 Amount Owed (£)
               </label>
               <input
@@ -328,12 +330,12 @@ const DebtTracker = () => {
                 placeholder="2500"
                 min="0"
                 step="0.01"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={`w-full px-3 py-2 border ${colors.border} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${colors.surface} ${colors.text.primary}`}
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className={`block text-sm font-medium ${colors.text.secondary} mb-2`}>
                 Interest Rate (%)
               </label>
               <input
@@ -344,13 +346,13 @@ const DebtTracker = () => {
                 min="0"
                 max="50"
                 step="0.1"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={`w-full px-3 py-2 border ${colors.border} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${colors.surface} ${colors.text.primary}`}
               />
-              <p className="text-xs text-gray-500 mt-1">Default is 20% if unknown</p>
+              <p className={`text-xs ${colors.text.muted} mt-1`}>Default is 20% if unknown</p>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className={`block text-sm font-medium ${colors.text.secondary} mb-2`}>
                 Minimum Payment (£)
               </label>
               <input
@@ -360,12 +362,12 @@ const DebtTracker = () => {
                 placeholder="75"
                 min="0"
                 step="0.01"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={`w-full px-3 py-2 border ${colors.border} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${colors.surface} ${colors.text.primary}`}
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className={`block text-sm font-medium ${colors.text.secondary} mb-2`}>
                 Credit Limit (£)
               </label>
               <input
@@ -375,9 +377,9 @@ const DebtTracker = () => {
                 placeholder="5000"
                 min="0"
                 step="0.01"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={`w-full px-3 py-2 border ${colors.border} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${colors.surface} ${colors.text.primary}`}
               />
-              <p className="text-xs text-gray-500 mt-1">Optional - for credit cards and overdrafts</p>
+              <p className={`text-xs ${colors.text.muted} mt-1`}>Optional - for credit cards and overdrafts</p>
             </div>
 
             <div className="md:col-span-2 flex gap-3">
@@ -493,7 +495,7 @@ const DebtTracker = () => {
                               value={limitAmount}
                               onChange={(e) => setLimitAmount(e.target.value)}
                               placeholder={debt.limit ? debt.limit.toString() : '0'}
-                              className="w-20 px-2 py-1 border border-gray-300 rounded text-sm text-right"
+                              className={`w-20 px-2 py-1 border ${colors.border} rounded text-sm text-right ${colors.surface} ${colors.text.primary}`}
                               min="0"
                               step="0.01"
                               autoFocus
@@ -622,7 +624,7 @@ const DebtTracker = () => {
           <div className="bg-green-50 rounded-lg shadow-sm p-6 border border-green-200">
             <h3 className="text-lg font-semibold text-green-900 mb-4">Snowball Power</h3>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-green-700 mb-2">
+              <label className={`block text-sm font-medium text-green-700 mb-2`}>
                 Extra Monthly Payment (£)
               </label>
               <input
@@ -632,7 +634,7 @@ const DebtTracker = () => {
                 placeholder="100"
                 min="0"
                 step="10"
-                className="w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                className={`w-full px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 ${colors.surface} ${colors.text.primary}`}
               />
             </div>
             {hasProjections && projections.totalMonths > 0 && (
@@ -770,7 +772,7 @@ const DebtTracker = () => {
                                 value={paymentAmount}
                                 onChange={(e) => setPaymentAmount(e.target.value)}
                                 placeholder={projectedPayment.toFixed(2)}
-                                className="w-24 px-2 py-1 border border-gray-300 rounded text-sm text-right"
+                                className={`w-24 px-2 py-1 border ${colors.border} rounded text-sm text-right ${colors.surface} ${colors.text.primary}`}
                                 min="0"
                                 step="0.01"
                                 autoFocus
