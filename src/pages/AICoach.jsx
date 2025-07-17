@@ -107,6 +107,66 @@ const AICoach = () => {
           </div>
         </section>
 
+        {/* Use Cases */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-8 text-center text-primary">Perfect For These Situations</h2>
+          <div className="space-y-6">
+            <div className={`${colors.surface} rounded-lg p-6 border-l-4 border-green-500`}>
+              <div className="flex items-start space-x-4">
+                <div className="text-3xl">💳</div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-semibold mb-3 text-green-700">Maximise 0% Transfer Offers</h3>
+                  <p className={`${colors.text.secondary} mb-4`}>
+                    Got a 0% balance transfer offer? The AI Coach will help you calculate exactly how much to transfer, 
+                    which debts to prioritize, and create a payment plan to clear everything before the promotional rate ends.
+                  </p>
+                  <div className="bg-green-50 rounded p-3">
+                    <p className="text-sm text-green-800">
+                      <strong>Example scenario:</strong> "I have a 0% transfer offer for 18 months. Should I transfer my £3,200 Barclaycard debt or focus on my overdraft first?"
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className={`${colors.surface} rounded-lg p-6 border-l-4 border-blue-500`}>
+              <div className="flex items-start space-x-4">
+                <div className="text-3xl">🤖</div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-semibold mb-3 text-blue-700">Unsure How to Proceed? Let AI Crunch the Numbers</h3>
+                  <p className={`${colors.text.secondary} mb-4`}>
+                    Multiple debts, different interest rates, varying minimum payments? The AI Coach will analyze your specific situation 
+                    and create multiple scenarios to show you the fastest, cheapest, and most motivating paths to debt freedom.
+                  </p>
+                  <div className="bg-blue-50 rounded p-3">
+                    <p className="text-sm text-blue-800">
+                      <strong>Example scenario:</strong> "I have 5 different debts. Should I follow the snowball method or focus on the highest interest rate first?"
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className={`${colors.surface} rounded-lg p-6 border-l-4 border-purple-500`}>
+              <div className="flex items-start space-x-4">
+                <div className="text-3xl">⏰</div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-semibold mb-3 text-purple-700">What Should I Do Now? Wait or Move</h3>
+                  <p className={`${colors.text.secondary} mb-4`}>
+                    Stuck in analysis paralysis? The AI Coach will give you a clear, actionable next step based on your current situation. 
+                    No more wondering "what if" - get a definitive answer on what to do right now.
+                  </p>
+                  <div className="bg-purple-50 rounded p-3">
+                    <p className="text-sm text-purple-800">
+                      <strong>Example scenario:</strong> "I just got a bonus of £1,500. Should I pay down debt, save it, or wait for a better transfer offer?"
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* How It Works */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold mb-8 text-center text-primary">How It Works</h2>
@@ -275,8 +335,8 @@ const AICoach = () => {
               >
                 Newsletter
               </a>
-              <button onClick={() => navigate('/analyser')} className="hover:text-primary transition-colors">
-                Spend Analyser
+              <button onClick={() => navigate('/baby-steps')} className="hover:text-primary transition-colors">
+                Baby Steps
               </button>
               <a 
                 href="https://stan.store/trysnowball/p/buy-me-a-coffee-figkm7db" 
