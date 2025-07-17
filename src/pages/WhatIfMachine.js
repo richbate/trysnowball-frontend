@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDataManager } from '../hooks/useDataManager';
 import {
@@ -126,27 +126,7 @@ const WhatIfMachine = () => {
   })) : generateRandomDebts().map(debt => ({ ...debt, isDemo: true }));
 
 
-  // Check for pending snowball data from spend analyser
-  useEffect(() => {
-    const pendingSnowball = localStorage.getItem('trysnowball-pending-snowball');
-    
-    if (pendingSnowball) {
-      try {
-        const snowballData = JSON.parse(pendingSnowball);
-        setExtraPayment(snowballData.amount);
-        localStorage.setItem('trysnowball-spending-breakdown', JSON.stringify(snowballData.breakdown));
-        localStorage.removeItem('trysnowball-pending-snowball');
-        setShowSnowballSuccess(true);
-        
-        setTimeout(() => {
-          setShowSnowballSuccess(false);
-        }, 5000);
-        
-      } catch (error) {
-        console.error('Error processing pending snowball data:', error);
-      }
-    }
-  }, []);
+  // Remove SpendAnalyser integration - now using manual input only
 
   const scenarios = useMemo(() => {
     const scenarioResults = {};
@@ -312,20 +292,27 @@ const WhatIfMachine = () => {
           <span className="text-green-600 font-semibold min-w-16">{formatCurrency(extraPayment)}</span>
         </div>
 
-        {/* Link back to Spend Analyser if no extra payment */}
+        {/* Link to Money Helper Budget Tool if no extra payment */}
         {extraPayment === 0 && (
           <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col space-y-3">
               <div>
                 <p className="text-sm font-medium text-blue-900">Need help finding extra money?</p>
-                <p className="text-xs text-blue-700">Analyze your spending to discover hidden savings</p>
+                <p className="text-xs text-blue-700">Use the Money Helper Budget Planner to discover potential savings</p>
               </div>
-              <button
-                onClick={() => navigate('/analyser')}
-                className="bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors"
-              >
-                Analyze Spending →
-              </button>
+              <div className="space-y-2">
+                <a
+                  href="https://www.moneyhelper.org.uk/en/everyday-money/budgeting/budget-planner"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors inline-block"
+                >
+                  Open Budget Planner →
+                </a>
+                <p className="text-xs text-blue-600">
+                  After completing your budget, return here and enter any extra amount you could put toward debt
+                </p>
+              </div>
             </div>
           </div>
         )}

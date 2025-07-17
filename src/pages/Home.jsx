@@ -116,39 +116,65 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Spend Analyser Section */}
+      {/* Dave Ramsey Baby Steps Section */}
       <section className="mb-16 max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-primary">🔍 AI Spend Analyser</h2>
+        <h2 className="text-3xl font-bold mb-6 text-primary">🏗️ Dave Ramsey's Baby Steps</h2>
         <div className={`${colors.surface} rounded-lg p-8 border-l-4 border-primary`}>
           <p className="text-lg leading-relaxed mb-4 font-semibold">
-            Where's your money really going?
+            The debt snowball is just one step in a proven plan to financial freedom
           </p>
-          <p className="text-lg leading-relaxed mb-4">
-            Upload your bank transactions — our AI spots hidden spending leaks, fast.
+          <p className="text-lg leading-relaxed mb-6">
+            Dave Ramsey's 7 Baby Steps have helped millions escape debt and build wealth. 
+            The debt snowball method is Baby Step 2 — but it works best as part of the complete system.
           </p>
-          <ul className="mb-4 space-y-2 text-lg">
-            <li className="flex items-center">
-              <span className="mr-2">•</span>
-              <span className="font-semibold text-green-600">£215 average monthly savings found</span>
-            </li>
-            <li className="flex items-center">
-              <span className="mr-2">•</span>
-              <span>Your data stays private — analysis happens in your browser.</span>
-            </li>
-          </ul>
-          <div className="space-y-3 sm:space-y-0 sm:space-x-4 sm:flex">
-            <button
-              onClick={() => navigate('/analyser')}
-              className="w-full sm:w-auto bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-accent transition-colors shadow"
+          
+          <div className="grid md:grid-cols-3 gap-4 mb-6">
+            <div className={`${colors.surfaceSecondary} rounded-lg p-4`}>
+              <div className="flex items-center mb-2">
+                <div className="bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm mr-3">1</div>
+                <h4 className="font-semibold">Emergency Fund</h4>
+              </div>
+              <p className="text-sm text-gray-600">Save £1,000 for starter emergency fund</p>
+            </div>
+            
+            <div className={`${colors.surfaceSecondary} rounded-lg p-4 border-2 border-primary`}>
+              <div className="flex items-center mb-2">
+                <div className="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm mr-3">2</div>
+                <h4 className="font-semibold">Debt Snowball</h4>
+              </div>
+              <p className="text-sm text-gray-600">Pay off all debt (except house) using snowball method</p>
+              <p className="text-xs text-primary font-semibold mt-1">← You are here!</p>
+            </div>
+            
+            <div className={`${colors.surfaceSecondary} rounded-lg p-4`}>
+              <div className="flex items-center mb-2">
+                <div className="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm mr-3">3</div>
+                <h4 className="font-semibold">Full Emergency Fund</h4>
+              </div>
+              <p className="text-sm text-gray-600">Save 3-6 months of expenses</p>
+            </div>
+          </div>
+          
+          <p className={`${colors.text.secondary} mb-6`}>
+            <strong className={colors.text.primary}>Plus 4 more steps:</strong> Investing for retirement, children's college, 
+            paying off your home early, and building wealth to give generously.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button 
+              onClick={() => navigate('/baby-steps')}
+              className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-accent transition-colors shadow"
             >
-              → Analyse My Spending
+              → See All 7 Baby Steps
             </button>
-            <button
-              onClick={() => navigate('/analyser')}
-              className={`w-full sm:w-auto ${colors.surfaceSecondary} ${colors.text.secondary} px-6 py-3 rounded-lg font-semibold hover:${colors.surface} transition-colors`}
+            <a
+              href="https://www.moneyhelper.org.uk/en/everyday-money/budgeting/budget-planner"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 bg-transparent border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-white transition-colors shadow text-center"
             >
-              → Try Demo Data
-            </button>
+              → Start Your Budget (Money Helper)
+            </a>
           </div>
         </div>
       </section>
@@ -280,8 +306,8 @@ const Home = () => {
             >
               Newsletter
             </a>
-            <button onClick={() => navigate('/analyser')} className="hover:text-primary transition-colors">
-              Spend Analyser
+            <button onClick={() => navigate('/baby-steps')} className="hover:text-primary transition-colors">
+              Baby Steps
             </button>
             <a 
               href="https://stan.store/trysnowball/p/buy-me-a-coffee-figkm7db" 

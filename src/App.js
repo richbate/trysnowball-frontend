@@ -9,7 +9,7 @@ import DebtTracker from './pages/MyDebtsPage';
 import WhatIfMachine from './pages/WhatIfMachine';
 import Home from './pages/Home';
 import Library from './pages/Library';
-import SpendAnalyser from './components/SpendAnalyser';
+import BabySteps from './pages/BabySteps';
 import AICoach from './pages/AICoach';
 import FuturePlans from './pages/FuturePlans';
 
@@ -39,7 +39,7 @@ function Navigation() {
   const navItems = [
     ['/', 'Home'],
     ['/debts', 'My Debts'],
-    ['/analyser', 'Spend Analyser'],
+    ['/baby-steps', 'Baby Steps'],
     ['/what-if', 'What If Machine'],
     ['/ai-coach', 'AI Coach'],
     ['/library', 'Library'],
@@ -127,7 +127,7 @@ function Navigation() {
       <div className={`transition-all duration-300 ease-in-out ${colors.background} min-h-screen`}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/analyser" element={<SpendAnalyser />} />
+          <Route path="/baby-steps" element={<BabySteps />} />
           <Route path="/what-if" element={<WhatIfMachine />} />
           <Route path="/debts" element={<DebtTracker />} />
           <Route path="/ai-coach" element={<AICoach />} />
