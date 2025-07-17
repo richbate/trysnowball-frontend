@@ -22,8 +22,8 @@
 ```
 src/
 ├── components/
-│   ├── SpendAnalyser.js
-│   └── auth.js
+│   ├── EmailPrompt.js
+│   └── ThemeToggle.js
 ├── pages/
 │   ├── Home.jsx
 │   ├── Library.jsx
@@ -38,7 +38,7 @@ src/
 
 ## Data Flow
 - Uses localStorage for client-side data persistence
-- SpendAnalyser → WhatIfMachine integration via localStorage
+- Baby Steps progress tracking via localStorage
 - No server-side dependencies for core functionality
 
 ## Development Notes
