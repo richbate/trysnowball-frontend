@@ -83,6 +83,15 @@ const FuturePlans = () => {
       impact: 'Medium'
     },
     {
+      id: 'ai-spend-analyser',
+      category: 'AI',
+      title: 'AI Spend Analyser',
+      description: 'AI-powered spending analysis that maintains privacy while finding savings opportunities',
+      status: 'idea',
+      effort: 'Large',
+      impact: 'High'
+    },
+    {
       id: 'export-tools',
       category: 'Features',
       title: 'Enhanced Export Tools',
@@ -348,8 +357,8 @@ const FuturePlans = () => {
               >
                 Newsletter
               </a>
-              <button onClick={() => navigate('/analyser')} className="hover:text-primary transition-colors">
-                Spend Analyser
+              <button onClick={() => navigate('/baby-steps')} className="hover:text-primary transition-colors">
+                Baby Steps
               </button>
               <a 
                 href="https://stan.store/trysnowball/p/buy-me-a-coffee-figkm7db" 

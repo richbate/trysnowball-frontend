@@ -386,10 +386,10 @@ Stay focused. Keep going. Your future self is cheering you on.`
             Try the What If Machine
           </button>
           <button 
-            onClick={() => navigate('/analyser')}
+            onClick={() => navigate('/baby-steps')}
             className="px-6 py-3 bg-transparent border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
           >
-            Analyse Your Spending
+            See Baby Steps
           </button>
         </div>
       </div>
@@ -598,10 +598,10 @@ Stay focused. Keep going. Your future self is cheering you on.`
               Try the What If Machine
             </button>
             <button 
-              onClick={() => navigate('/analyser')}
+              onClick={() => navigate('/baby-steps')}
               className="px-6 py-3 bg-transparent border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
             >
-              Analyse Your Spending
+              See Baby Steps
             </button>
           </div>
         </div>
